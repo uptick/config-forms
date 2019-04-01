@@ -1,0 +1,39 @@
+{
+  "name": "config-forms-react",
+  "version": "0.0.1",
+  "description": "React HTML renderer for config forms.",
+  "main": "dist/config-forms-react.js",
+  "repository": "https://github.com/uptick/config-forms",
+  "author": "Uptick",
+  "license": "MIT",
+  "private": false,
+  "scripts": {
+    "build-js": "./node_modules/.bin/webpack --production",
+    "watch-js": "./node_modules/.bin/webpack --watch",
+    "build-css": "./node_modules/.bin/stylus src/index.styl -o dist/config-forms-react.css",
+    "watch-css": "./node_modules/.bin/stylus src/index.styl -o dist/config-forms-react.css --watch",
+    "build": "npm run build-js && npm run build-css",
+    "prepare": "npm run build"
+  },
+  "peerDependencies": {
+    "classnames": "^2.2.6",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
+  },
+  "dependencies": {
+    "config-forms": "^0.0.1",
+    "mireco": "^0.0.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.0",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/preset-env": "^7.4.2",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.5",
+    "peer-deps-externals-webpack-plugin": "^1.0.4",
+    "stylus": "^0.54.5",
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0"
+  }
+}
