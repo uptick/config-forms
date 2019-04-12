@@ -14,24 +14,6 @@ class FormContainer extends React.Component {
     if (!this.props.subform && this.props.showValue) {
       contents.push(<p key="stringified">{JSON.stringify(this.props.value)}</p>)
     }
-    switch (this.props.style) {
-      case 'cards':
-        contents = (
-          <Card>
-            <CardSection last>
-              {contents}
-            </CardSection>
-          </Card>
-        )
-        break
-      case 'outline':
-        contents = (
-          <Outline>
-            {contents}
-          </Outline>
-        )
-        break
-    }
     if (!this.props.subform) {
       contents = (
         <div className="CONFORM-form">

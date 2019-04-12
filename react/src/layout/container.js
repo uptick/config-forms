@@ -5,7 +5,7 @@ import CardSection from './card-section.js'
 import Outline from './outline.js'
 
 class Container extends React.Component {
-  render() {
+  renderByStyle() {
     switch (this.props.style) {
       case 'card':
         return (
@@ -24,6 +24,9 @@ class Container extends React.Component {
       default:
         return this.props.children
     }
+  }
+  render() {
+    return this.renderByStyle()
   }
 }
 

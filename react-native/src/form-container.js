@@ -33,24 +33,6 @@ class FormContainer extends React.PureComponent {
         </View>
       )
     }
-    switch (this.props.style) {
-      case 'cards':
-        contents = (
-          <Card>
-            <CardSection last>
-              {contents}
-            </CardSection>
-          </Card>
-        )
-        break
-      case 'outline':
-        contents = (
-          <Outline>
-            {contents}
-          </Outline>
-        )
-        break
-    }
     return contents
   }
 }

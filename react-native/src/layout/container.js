@@ -5,7 +5,7 @@ import CardSection from './card-section.js'
 import Outline from './outline.js'
 
 class Container extends React.PureComponent {
-  render() {
+  renderByStyle() {
     switch (this.props.style) {
       case 'card':
         return (
@@ -24,6 +24,9 @@ class Container extends React.PureComponent {
       default:
         return this.props.children
     }
+  }
+  render() {
+    return this.renderByStyle()
   }
 }
 

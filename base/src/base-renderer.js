@@ -249,11 +249,23 @@ class BaseRenderer extends React.PureComponent {
       })
     }
 
-    return React.createElement(this.props.container, {
-      value: this.props.value,
-      subform: this.props.subform,
-      style: this.props.style,
-    }, contents)
+    if (this.props.style) {
+      const StyleWrapper = this.props.layoutRenderers.container
+      contents = (
+        <StyleWrapper style={this.props.style}>
+          {contents}
+        </StyleWrapper>
+      )
+    }
+    const Container = this.props.container
+    return (
+      <Container
+        value={this.props.value}
+        subform={this.props.subform}
+      >
+        {contents}
+      </Container>
+    )
   }
 }
 
