@@ -252,7 +252,9 @@ class BaseRenderer extends React.PureComponent {
     if (this.props.style) {
       const StyleWrapper = this.props.layoutRenderers.container
       contents = (
-        <StyleWrapper style={this.props.style}>
+        <StyleWrapper
+          {...this.props.config}
+        >
           {contents}
         </StyleWrapper>
       )
