@@ -9,6 +9,7 @@ const fieldRenderers = {
   text: fields.Text,
   textarea: fields.Textarea,
   checkbox: fields.Checkbox,
+  number: fields.Number,
 }
 const layoutRenderers = {
   text: layout.Text,
