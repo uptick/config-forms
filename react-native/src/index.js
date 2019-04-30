@@ -33,6 +33,7 @@ export default class NativeRenderer extends React.PureComponent {
         fieldRenderers={fieldRenderers}
         layoutRenderers={layoutRenderers}
         formRenderer={NativeRenderer}
+        context={this.props.context}
       />
     )
   }

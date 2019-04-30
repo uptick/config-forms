@@ -27,6 +27,7 @@ export default class WebRenderer extends React.Component {
         fieldRenderers={fieldRenderers}
         layoutRenderers={layoutRenderers}
         formRenderer={WebRenderer}
+        context={this.props.context}
       />
     )
   }

@@ -10,6 +10,7 @@ class BaseRenderer extends React.PureComponent {
     editable: PropTypes.bool,
     onChange: PropTypes.func,
     subform: PropTypes.bool,
+    context: PropTypes.object,
   }
   static defaultProps = {
     formRenderer: BaseRenderer,
@@ -96,6 +97,7 @@ class BaseRenderer extends React.PureComponent {
                     updatedSet.splice(subformIndex, 1)
                     this.onFieldChange(field.key, updatedSet)
                   }}
+                  context={this.props.context}
                 >
                   <FormRenderer
                     subform
@@ -108,6 +110,7 @@ class BaseRenderer extends React.PureComponent {
                       updatedSet[subformIndex] = newValue
                       this.onFieldChange(field.key, updatedSet)
                     }}
+                    context={this.props.context}
                   />
                 </ControlsRenderer>
               )
@@ -126,6 +129,7 @@ class BaseRenderer extends React.PureComponent {
                     updatedSet[subformIndex] = newValue
                     this.onFieldChange(field.key, updatedSet)
                   }}
+                  context={this.props.context}
                 />
               )
             }
@@ -156,6 +160,7 @@ class BaseRenderer extends React.PureComponent {
               onChange={(newValue) => {
                 this.onFieldChange(field.key, newValue)
               }}
+              context={this.props.context}
             />
           )
         }
@@ -175,6 +180,7 @@ class BaseRenderer extends React.PureComponent {
             editable={this.props.editable}
             onChange={this.onFieldChange}
             onGroupSet={this.onFieldGroupSet}
+            context={this.props.context}
             {...fieldConfig}
           />
         )
@@ -198,6 +204,7 @@ class BaseRenderer extends React.PureComponent {
               key={`layout-${layoutItemIndex}`}
               {...child}
               containerHierarchy={containerHierarchy}
+              context={this.props.context}
             >
               {renderLayoutChildren(child.contents, [
                 ...containerHierarchy,
@@ -225,6 +232,7 @@ class BaseRenderer extends React.PureComponent {
           renderedChildren.push(
             <Renderer
               key={`layout-${layoutItemIndex}`}
+              context={this.props.context}
               {...child}
             />
           )
@@ -264,6 +272,7 @@ class BaseRenderer extends React.PureComponent {
       <Container
         value={this.props.value}
         subform={this.props.subform}
+        context={this.props.context}
       >
         {contents}
       </Container>
