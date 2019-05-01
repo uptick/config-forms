@@ -1,15 +1,34 @@
 import React from 'react'
-import { TouchableHighlight, View, Text } from 'react-native'
+import { TouchableHighlight, View, Text, Alert } from 'react-native'
 
 import Style from '../style.js'
 
 class Controllable extends React.PureComponent {
+  handleRemovePress = () => {
+    Alert.alert(
+      'Discard Item',
+      `Are you sure you want to remove this item?`,
+      [
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          text: 'Discard',
+          onPress: () => {
+            this.props.onRemove()
+          },
+        },
+      ],
+      {cancelable: true},
+    )
+  }
   render() {
     let remove
     if (typeof this.props.onRemove === 'function') {
       remove = (
         <TouchableHighlight
-          onPress={this.props.onRemove}
+          onPress={this.handleRemovePress}
         >
           <View style={{
             backgroundColor: Style.primaryColour,
@@ -44,7 +63,9 @@ class Controllable extends React.PureComponent {
         </View>
         {(remove) && (
           <View style={{
-            marginLeft: 8,
+            position: 'absolute',
+            right: 8,
+            top: 8,
           }}>
             {remove}
           </View>
