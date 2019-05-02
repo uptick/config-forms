@@ -51,14 +51,12 @@ class Text extends React.PureComponent {
         {text}
       </View>
     )
-    if (this.props.label) {
+    if (this.props.label || this.props.description) {
       component = (
         <View style={{
           marginBottom: Style.standardMargin,
         }}>
-          {this.props.label && (
-            <InfoLabel>{this.props.label}</InfoLabel>
-          )}
+          <InfoLabel description={this.props.description}>{this.props.label}</InfoLabel>
           {component}
         </View>
       )

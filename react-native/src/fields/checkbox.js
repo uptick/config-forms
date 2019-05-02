@@ -12,9 +12,14 @@ class Checkbox extends React.PureComponent {
         alignItems: 'center',
         marginBottom: Style.standardMargin,
       }}>
-        <InfoLabel style={{
-          flex: 1,
-        }}>{this.props.label}</InfoLabel>
+        <InfoLabel
+          style={{
+            flex: 1,
+          }}
+          description={this.props.description}
+        >
+          {this.props.label}
+        </InfoLabel>
         <Switch
           value={this.props.value}
           title={this.props.label}

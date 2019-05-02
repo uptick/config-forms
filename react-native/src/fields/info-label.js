@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Modal, ScrollView, StyleSheet } from 'react-native'
+import { Text, View, TouchableHighlight, Modal, ScrollView, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialIcons'
 
 import { Button } from '../layout'
@@ -17,13 +17,24 @@ class InfoLabel extends React.PureComponent {
     this.setState({modalOpen: false})
   }
   render() {
-    let prompt
+    let infoPrompt = (<View style={{height: 14}} />)
     if (this.props.description) {
-      prompt = (<Text> <Icon name="info" color="#00aeef" size={14} /></Text>)
+      infoPrompt = (
+        <Icon name="info" color="#00aeef" size={14} />
+      )
     }
     return (
       <View style={this.props.style}>
-        <Text onPress={this.handlePress}>{this.props.children}{prompt}</Text>
+        <TouchableHighlight
+          onPress={this.handlePress}
+          underlayColor="#fff0"
+          activeOpacity={1}
+        >
+          <View>
+            {infoPrompt}
+            <Text>{this.props.children}</Text>
+          </View>
+        </TouchableHighlight>
         {this.state.modalOpen && (
           <Modal
             onRequestClose={this.closeModal}
