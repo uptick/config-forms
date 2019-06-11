@@ -1298,10 +1298,10 @@ concat-stream@^1.5.0:
     readable-stream "^2.2.2"
     typedarray "^0.0.6"
 
-config-forms@^0.0.1:
-  version "0.0.1"
-  resolved "https://registry.yarnpkg.com/config-forms/-/config-forms-0.0.1.tgz#f674a7c0c279a55aa9703b9e9a6957312eb05c2f"
-  integrity sha512-3zKTbxtJJNa1u3z5khAJQywchqfHoCyb/2rNQ95fCeRUrp/opHfjN2kuRW4f/ueNA63dBTYQgAmJb3o92UnWFw==
+config-forms@^0.0.5:
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/config-forms/-/config-forms-0.0.5.tgz#02512e58d002397d67f93191da6a80af94bc0e06"
+  integrity sha512-YSMBljKbKA5N98N/y0sLap6aqhkDXr9us2iChyAOdczkuU35wlDAr9cqZa66My9XjOXavyGa4f0qdMDQNyqukA==
   dependencies:
     prop-types "^15.7.2"
 
