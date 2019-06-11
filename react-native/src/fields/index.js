@@ -7,3 +7,6 @@ export { Textarea }
 
 import InfoLabel from './info-label.js'
 export { InfoLabel }
+
+import Number from './number.js'
+export { Number }
