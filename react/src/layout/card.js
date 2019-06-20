@@ -17,8 +17,10 @@ class Card extends React.Component {
       <div
         className="CONFORM-card"
       >
-        {title}
-        {this.props.children}
+        <div>
+          {title}
+          {this.props.children}
+        </div>
       </div>
     )
   }
