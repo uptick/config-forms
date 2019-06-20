@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text } from 'react-native'
 
-import { Card, CardSection, Outline } from './layout'
+import { Card, Outline } from './layout'
 
 class FormContainer extends React.PureComponent {
   static defaultProps = {

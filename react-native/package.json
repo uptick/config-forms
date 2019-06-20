@@ -10,6 +10,7 @@
   "scripts": {
     "build-js": "./node_modules/.bin/webpack --production",
     "watch-js": "./node_modules/.bin/webpack --watch",
+    "watch": "npm run watch-js",
     "build": "npm run build-js",
     "prepare": "npm run build"
   },

@@ -31,23 +31,19 @@ class Controllable extends React.PureComponent {
           onPress={this.handleRemovePress}
         >
           <View style={{
-            backgroundColor: Style.primaryColour,
-            padding: 12,
-            paddingTop: 7,
-            paddingBottom: 7,
+            backgroundColor: Style.primaryContent,
+            paddingTop: 0,
+            paddingBottom: 5,
+            paddingLeft: 10,
+            paddingRight: 10,
             borderRadius: 2,
-            shadowColor: '#000',
-            shadowOffset: {
-              width: 0,
-              height: 2,
-            },
-            shadowOpacity: 0.35,
-            shadowRadius: 2,
-            elevation: 5,
+            borderWidth: 1,
+            borderColor: Style.primaryColour,
           }}>
             <Text style={{
-              color: Style.primaryContent,
-            }}>X</Text>
+              color: Style.primaryColour,
+              fontSize: 20,
+            }}>x</Text>
           </View>
         </TouchableHighlight>
       )
@@ -64,8 +60,8 @@ class Controllable extends React.PureComponent {
         {(remove) && (
           <View style={{
             position: 'absolute',
-            right: 8,
-            top: 8,
+            right: 7,
+            top: 7,
           }}>
             {remove}
           </View>

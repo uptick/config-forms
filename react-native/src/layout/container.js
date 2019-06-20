@@ -1,7 +1,6 @@
 import React from 'react'
 
 import Card from './card.js'
-import CardSection from './card-section.js'
 import Outline from './outline.js'
 
 class Container extends React.PureComponent {
@@ -10,9 +9,7 @@ class Container extends React.PureComponent {
       case 'card':
         return (
           <Card title={this.props.title}>
-            <CardSection last>
-              {this.props.children}
-            </CardSection>
+            {this.props.children}
           </Card>
         )
       case 'outline':

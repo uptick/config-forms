@@ -1,44 +1,48 @@
 import React from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, StyleSheet } from 'react-native'
 
-import CardSection from './card-section.js'
 import Style from '../style.js'
 
-class Card extends React.PureComponent {
+export default class Card extends React.PureComponent {
   render() {
     let title
     if (this.props.title) {
       title = (
-        <CardSection backgroundColor={Style.primaryColour} title>
-          <Text style={{
-            color: Style.primaryContent,
-            marginBottom: Style.standardMargin / 1.5,
-          }}>
+        <View style={styles.title}>
+          <Text style={styles.titleText}>
             {this.props.title}
           </Text>
-        </CardSection>
+        </View>
       )
     }
     return (
-      <View
-        style={{
-          backgroundColor: Style.contentBackground,
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 2,
-          },
-          shadowOpacity: 0.35,
-          shadowRadius: 2,
-          elevation: 5,
-          marginBottom: Style.standardMargin,
-        }}
-      >
+      <View style={styles.card}>
         {title}
-        {this.props.children}
+        <View style={styles.content}>
+          {this.props.children}
+        </View>
       </View>
     )
   }
 }
 
-export default Card
+const styles = StyleSheet.create({
+  card: {
+    backgroundColor: Style.contentBackground,
+  },
+  content: {
+    paddingTop: Style.standardMargin,
+    paddingLeft: Style.standardMargin,
+    paddingRight: Style.standardMargin,
+  },
+  title: {
+    backgroundColor: Style.primaryColour,
+    paddingLeft: Style.standardMargin,
+    paddingRight: Style.standardMargin,
+    paddingTop: Style.standardMargin / 1.5,
+    paddingBottom: Style.standardMargin / 1.5,
+  },
+  titleText: {
+    color: Style.primaryContent,
+  },
+})

@@ -34,9 +34,10 @@ class Text extends React.PureComponent {
     else {
       text = (
         <RNText style={{
-          marginTop: 10,
-          marginBottom: 10,
-        }}>{this.props.value}</RNText>
+          marginBottom: 20,
+        }}>
+          {this.props.value}
+        </RNText>
       )
     }
 
@@ -44,8 +45,6 @@ class Text extends React.PureComponent {
       <View style={{
         borderBottomWidth: 1,
         borderBottomColor: this.state.focused ? Style.primaryColour : Style.contentFaint,
-        paddingBottom: 5,
-        marginTop: 5,
         marginBottom: 20,
       }}>
         {text}
