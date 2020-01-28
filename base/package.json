@@ -1,6 +1,6 @@
 {
   "name": "config-forms",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Base package for config forms renderers.",
   "main": "dist/config-forms.js",
   "repository": "https://github.com/uptick/config-forms",
@@ -14,7 +14,7 @@
     "prepare": "npm run build"
   },
   "peerDependencies": {
-    "react": "^16.8.6"
+    "react": "^16.9.0"
   },
   "dependencies": {
     "prop-types": "^15.7.2"
