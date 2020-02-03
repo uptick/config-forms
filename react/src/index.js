@@ -10,12 +10,14 @@ const fieldRenderers = {
   textarea: fields.Textarea,
   checkbox: fields.Checkbox,
   number: fields.Text,
+  placeholder: fields.Placeholder,
 }
 const layoutRenderers = {
   text: layout.Text,
   container: layout.Container,
   button: layout.Button,
   controllable: layout.Controllable,
+  placeholder: layout.Placeholder,
 }
 export { FormContainer, fieldRenderers, layoutRenderers }
 

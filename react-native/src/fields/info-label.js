@@ -8,8 +8,11 @@ class InfoLabel extends React.PureComponent {
   state = {
     modalOpen: false,
   }
+  hasDescription = () => {
+    return !!this.props.description
+  }
   handlePress = () => {
-    if (this.props.description) {
+    if (this.hasDescription()) {
       this.setState({modalOpen: true})
     }
   }
@@ -35,11 +38,11 @@ class InfoLabel extends React.PureComponent {
             <Text>{this.props.children}</Text>
           </View>
         </TouchableHighlight>
-        {this.state.modalOpen && (
+        {this.hasDescription() && (
           <Modal
-            onRequestClose={this.closeModal}
             animationType="fade"
-            presentationStyle="pageSheet"
+            onRequestClose={this.closeModal}
+            visible={this.state.modalOpen}
           >
             <View style={styles.modal}>
               <Text style={styles.modalHeader}>{this.props.children}</Text>
