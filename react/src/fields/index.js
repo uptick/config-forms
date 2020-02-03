@@ -4,3 +4,5 @@ import Text from './text.js'
 export { Text }
 import Textarea from './textarea.js'
 export { Textarea }
+import Placeholder from './placeholder.js'
+export { Placeholder }

@@ -12,3 +12,5 @@ import Outline from './outline.js'
 export { Outline }
 import Text from './text.js'
 export { Text }
+import Placeholder from './placeholder.js'
+export { Placeholder }
