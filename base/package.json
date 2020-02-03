@@ -1,6 +1,6 @@
 {
   "name": "config-forms",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Base package for config forms renderers.",
   "main": "dist/config-forms.js",
   "repository": "https://github.com/uptick/config-forms",

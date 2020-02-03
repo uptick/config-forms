@@ -167,7 +167,9 @@ class BaseRenderer extends React.PureComponent {
         return subforms
       }
       else {
-        let FieldRenderer = this.props.fieldRenderers[fieldConfig.type]
+        const FieldRenderer = (
+          this.props.fieldRenderers[fieldConfig.type] || this.props.fieldRenderers.placeholder
+        )
         if (!FieldRenderer) {
           console.warn('Bad field renderer for:', fieldConfig.type)
           return null
@@ -193,7 +195,10 @@ class BaseRenderer extends React.PureComponent {
       let renderedChildren = []
       children.map((child) => {
         if (child.type === 'container') {
-          let ContainerRenderer = this.props.layoutRenderers['container']
+          let ContainerRenderer = (
+            this.props.layoutRenderers.container
+            || this.props.layoutRenderers.placeholder
+          )
           if (!ContainerRenderer) {
             console.warn('Bad layout renderer for:', child.type)
             return
@@ -223,7 +228,10 @@ class BaseRenderer extends React.PureComponent {
           }
         }
         else {
-          let Renderer = this.props.layoutRenderers[child.type]
+          let Renderer = (
+            this.props.layoutRenderers[child.type]
+            || this.props.layoutRenderers.placeholder
+          )
           if (!Renderer) {
             console.warn('Bad layout renderer for:', child.type)
             return
