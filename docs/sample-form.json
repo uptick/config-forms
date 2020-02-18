@@ -1,0 +1,87 @@
+{
+  "fields": {
+    "vanilla_text": {"type": "text"},
+    "vanilla_textarea": {"type": "textarea"},
+    "vanilla_checkbox": {"type": "checkbox"},
+    "vanilla_number": {"type": "number"},
+
+    "annotated_text": {
+      "type": "text",
+      "label": "What is your name?",
+      "placeholder": "Your name",
+      "description": "More information is available here in a large piece of descriptive copy."
+    },
+    "annotated_textarea": {
+      "type": "textarea",
+      "label": "How did you find this NPM package?",
+      "placeholder": "Write a short description",
+      "description": "More information is available here in a large piece of descriptive copy."
+    },
+    "annotated_checkbox": {
+      "type": "checkbox",
+      "label": "Yes I want to receive spam email",
+      "description": "More information is available here in a large piece of descriptive copy."
+    },
+    "annotated_number": {
+      "type": "number",
+      "label": "Please enter your age",
+      "placeholder": "Your age in years",
+      "description": "More information is available here in a large piece of descriptive copy."
+    },
+
+    "outline_example": {
+      "type": "text",
+      "label": "Example of a text box inside an outline"
+    },
+
+    "subform_example": {
+      "type": "subform",
+      "name": "Friend",
+      "repeats": true,
+      "addMore": true,
+      "fields": {
+        "text": {
+          "type": "text",
+          "label": "Friend's name",
+          "placeholder": "Name"
+        }
+      },
+      "layout": [
+        {"type": "field", "field": "text"}
+      ]
+    }
+  },
+  "layout": [
+    {
+      "type": "container",
+      "style": "card",
+      "title": "Base Fields (Vanilla)",
+      "contents": [
+        {"type": "field", "field": "vanilla_text"},
+        {"type": "field", "field": "vanilla_textarea"},
+        {"type": "field", "field": "vanilla_checkbox"},
+        {"type": "field", "field": "vanilla_number"}
+      ]
+    },
+    {
+      "type": "container",
+      "style": "card",
+      "title": "Base Fields (Annotated)",
+      "contents": [
+        {"type": "field", "field": "annotated_text"},
+        {"type": "field", "field": "annotated_textarea"},
+        {"type": "field", "field": "annotated_checkbox"},
+        {"type": "field", "field": "annotated_number"}
+      ]
+    },
+    {
+      "type": "container",
+      "style": "outline",
+      "title": "Outline Example",
+      "contents": [
+        {"type": "field", "field": "outline_example"}
+      ]
+    },
+    {"type": "field", "field": "subform_example"}
+  ]
+}
