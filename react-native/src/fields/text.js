@@ -1,8 +1,14 @@
 import React from 'react'
-import { View, Text as RNText, TextInput } from 'react-native'
+import { View, Text as RNText, TextInput, StyleSheet } from 'react-native'
 
 import { InfoLabel } from '.'
 import Style from '../style.js'
+
+const styles = StyleSheet.create({
+  input: {
+    marginBottom: 8,
+  },
+})
 
 class Text extends React.PureComponent {
   state = {
@@ -17,7 +23,7 @@ class Text extends React.PureComponent {
           onChangeText={(newValue) => {
             this.props.onChange(this.props.fieldKey, newValue)
           }}
-          placeholder={this.props.placeholder}
+          placeholder={this.props.placeholder || 'Text'}
           onFocus={() => {
             this.setState({focused: true})
           }}
@@ -25,9 +31,10 @@ class Text extends React.PureComponent {
             this.setState({focused: false})
           }}
           multiline={this.props.multiline}
-          style={this.props.style}
-          underlineColorAndroid={'transparent'}
+          underlineColorAndroid="transparent"
+          style={[styles.input, this.props.style]}
           selectionColor={Style.primaryColour}
+          keyboardType={this.props.keyboardType}
         />
       )
     }
@@ -52,12 +59,15 @@ class Text extends React.PureComponent {
     )
     if (this.props.label || this.props.description) {
       component = (
-        <View style={{
-          marginBottom: Style.standardMargin,
-        }}>
-          <InfoLabel description={this.props.description}>{this.props.label}</InfoLabel>
+        <React.Fragment>
+          <InfoLabel
+            description={this.props.description}
+            style={{marginBottom: 8}}
+          >
+            {this.props.label}
+          </InfoLabel>
           {component}
-        </View>
+        </React.Fragment>
       )
     }
     return component

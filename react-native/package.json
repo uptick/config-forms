@@ -1,6 +1,6 @@
 {
   "name": "config-forms-react-native",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "React Native renderer for config forms.",
   "main": "dist/config-forms-react-native.js",
   "repository": "https://github.com/uptick/config-forms",
@@ -8,10 +8,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build-js": "./node_modules/.bin/webpack --production",
-    "watch-js": "./node_modules/.bin/webpack --watch",
-    "watch": "npm run watch-js",
-    "build": "npm run build-js",
+    "build:js": "./node_modules/.bin/webpack --production",
+    "watch:js": "./node_modules/.bin/webpack --watch",
+    "watch": "npm run watch:js",
+    "build": "npm run build:js",
     "prepare": "npm run build"
   },
   "peerDependencies": {
@@ -19,7 +19,7 @@
     "react-native": "~0.61.5"
   },
   "dependencies": {
-    "config-forms": "0.0.8",
+    "config-forms": "^0.0.9",
     "react-native-vector-icons": "^6.4.2"
   },
   "devDependencies": {
