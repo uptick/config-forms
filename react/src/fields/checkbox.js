@@ -1,11 +1,11 @@
 import React from 'react'
-import Mireco from 'mireco'
+import { Checkbox as MirecoCheckbox } from 'mireco'
 
 class Checkbox extends React.Component {
   render() {
     return (
       <div className="CONFORM-checkbox">
-        <Mireco.Checkbox
+        <MirecoCheckbox
           block
           label={this.props.label}
           value={!!this.props.value}

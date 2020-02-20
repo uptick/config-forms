@@ -8,11 +8,11 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build-js": "./node_modules/.bin/webpack --production",
-    "watch-js": "./node_modules/.bin/webpack --watch",
-    "build-css": "./node_modules/.bin/stylus src/index.styl -o dist/config-forms-react.css",
-    "watch-css": "./node_modules/.bin/stylus src/index.styl -o dist/config-forms-react.css --watch",
-    "build": "npm run build-js && npm run build-css",
+    "build:js": "./node_modules/.bin/webpack --production",
+    "watch:js": "./node_modules/.bin/webpack --watch",
+    "build:css": "./node_modules/.bin/stylus src/index.styl -o dist/config-forms-react.css",
+    "watch:css": "./node_modules/.bin/stylus src/index.styl -o dist/config-forms-react.css --watch",
+    "build": "npm run build:js && npm run build:css",
     "prepare": "npm run build"
   },
   "peerDependencies": {
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "config-forms": "^0.0.9",
-    "mireco": "^0.0.8"
+    "mireco": "^0.0.22"
   },
   "devDependencies": {
     "@babel/core": "^7.4.0",

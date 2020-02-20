@@ -1,12 +1,12 @@
 import React from 'react'
-import Mireco from 'mireco'
+import { Button } from 'mireco'
 
 class Controllable extends React.Component {
   render() {
     let remove
     if (typeof this.props.onRemove === 'function') {
       remove = (
-        <Mireco.Button block tabIndex={-1} onClick={this.props.onRemove}>×</Mireco.Button>
+        <Button block tabIndex={-1} onClick={this.props.onRemove}>×</Button>
       )
     }
     return (

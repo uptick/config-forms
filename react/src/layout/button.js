@@ -1,16 +1,16 @@
 import React from 'react'
-import Mireco from 'mireco'
+import { Button as MirecoButton } from 'mireco'
 
 class Button extends React.Component {
   render() {
     return (
       <div className="CONFORM-button">
-        <Mireco.Button
+        <MirecoButton
           block
           onClick={this.props.onClick}
         >
           {this.props.title}
-        </Mireco.Button>
+        </MirecoButton>
       </div>
     )
   }
