@@ -76,12 +76,19 @@
     },
     {
       "type": "container",
-      "style": "outline",
-      "title": "Outline Example",
+      "style": "card",
+      "title": "Layout / Subforms",
       "contents": [
-        {"type": "field", "field": "outline_example"}
+        {
+          "type": "container",
+          "style": "outline",
+          "title": "Outline Example",
+          "contents": [
+            {"type": "field", "field": "outline_example"}
+          ]
+        },
+        {"type": "field", "field": "subform_example"}
       ]
-    },
-    {"type": "field", "field": "subform_example"}
+    }
   ]
 }

@@ -12,14 +12,7 @@ export default class Button extends React.PureComponent {
           underlayColor={'#007bff66'}
           activeOpacity={1}
         >
-          <View style={{
-            backgroundColor: Style.primaryColour,
-            paddingTop: Style.standardMargin / 2,
-            paddingBottom: Style.standardMargin / 2,
-            paddingLeft: Style.standardMargin,
-            paddingRight: Style.standardMargin,
-            borderRadius: 6,
-          }}>
+          <View style={styles.button}>
             <Text style={{
               color: Style.primaryContent,
               textAlign: 'center',
@@ -36,6 +29,14 @@ export default class Button extends React.PureComponent {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: Style.contentBackground,
-    padding: Style.standardMargin,
+    marginBottom: Style.standardMargin,
+  },
+  button: {
+    backgroundColor: Style.primaryColour,
+    paddingTop: Style.standardMargin / 2,
+    paddingBottom: Style.standardMargin / 2,
+    paddingLeft: Style.standardMargin,
+    paddingRight: Style.standardMargin,
+    borderRadius: 6,
   },
 })
