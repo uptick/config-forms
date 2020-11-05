@@ -62,3 +62,9 @@ typings/
 
 # built files
 dist
+
+# jekyll build
+demo/_site
+demo/dist/*.js
+demo/dist/*.css
+demo/.jekyll-cache
