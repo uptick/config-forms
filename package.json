@@ -8,7 +8,7 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "publish:demo": "git branch -D gh-pages && git push origin --delete gh-pages; git checkout -b gh-pages && yarn && yarn build && git add . && git add -f dist && git add -f node_modules/uptick-demo-site/dist && git commit -m \"Demo site build\" && git push origin gh-pages && git checkout master && git push origin `git subtree split --prefix demo gh-pages`:gh-pages --force",
+    "publish:demo": "git branch -D gh-pages && git push origin --delete gh-pages; git checkout -b gh-pages && yarn && yarn build && git add . && git add -f dist && git add -f node_modules/uptick-demo-site/dist && git commit -m \"Demo site build\" && git push origin gh-pages && git checkout master && cd .. && git push origin `git subtree split --prefix demo gh-pages`:gh-pages --force && cd demo",
     "build:js": "./node_modules/.bin/webpack",
     "build:css": "./node_modules/stylus/bin/stylus demo.styl -o dist/demo.css --include-css",
     "watch:css": "./node_modules/stylus/bin/stylus demo.styl -o dist/demo.css --include-css --watch",
