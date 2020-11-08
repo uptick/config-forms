@@ -1,6 +1,6 @@
 {
   "name": "config-forms-react",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "React HTML renderer for config forms.",
   "main": "dist/config-forms-react.js",
   "repository": "https://github.com/uptick/config-forms",
