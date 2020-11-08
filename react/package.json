@@ -22,7 +22,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "config-forms": "^0.0.9",
+    "config-forms": "^0.0.10",
     "mireco": "^0.0.22",
     "prop-types": "^15.7.2"
   },
