@@ -1,4 +1,3 @@
-const PeerDepsExternalsPlugin = require('peer-deps-externals-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -7,7 +6,8 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'config-forms-react.js',
-    libraryTarget: 'umd'
+    libraryTarget: 'umd',
+    library: 'config-forms-react'
   },
   module: {
     rules: [
@@ -20,13 +20,23 @@ module.exports = {
       }
     ]
   },
-  plugins: [
-    new PeerDepsExternalsPlugin()
-  ],
+  externals: {
+    "react": {
+      commonjs: "react",
+      commonjs2: "react",
+      amd: "React",
+      root: "React"
+    },
+    "react-dom": {
+      commonjs: "react-dom",
+      commonjs2: "react-dom",
+      amd: "ReactDOM",
+      root: "ReactDOM"
+    }
+  },
   resolve: {
-    modules: [
-      path.resolve('node_modules'),
-      path.resolve('src'),
-    ],
+    alias: {
+      'config-forms': path.resolve('../base')
+    }
   }
 };
