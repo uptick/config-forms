@@ -8,9 +8,10 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build-js": "./node_modules/.bin/webpack --production",
-    "watch-js": "./node_modules/.bin/webpack --watch",
-    "build": "npm run build-js",
+    "build:js": "./node_modules/.bin/webpack --config webpack.build.js",
+    "watch:js": "./node_modules/.bin/webpack --config webpack.dev.js --watch",
+    "build": "npm run build:js",
+    "watch": "npm run watch:js",
     "prepare": "npm run build"
   },
   "peerDependencies": {
@@ -25,7 +26,6 @@
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.5",
-    "peer-deps-externals-webpack-plugin": "^1.0.4",
     "webpack": "^4.29.6",
     "webpack-cli": "^3.3.0"
   }
