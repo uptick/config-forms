@@ -1,10 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import WebEditor from 'config-forms-react-editor'
 
 function DemoFormEditor(props) {
   return (
     <>
-      <p>Demo Form Editor</p>
+      <WebEditor
+        config={{}}
+        value={{}}
+      />
     </>
   )
 }
