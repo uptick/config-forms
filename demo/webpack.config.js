@@ -20,12 +20,13 @@ module.exports = {
     ]
   },
   resolve: {
-    // modules: [
-    //   path.resolve('node_modules'),
-    // ],
-    // alias: {
+    modules: [
+      path.resolve('node_modules'),
+    ],
+    alias: {
     //   'config-forms': path.resolve('../base'),
     //   'config-forms-react': path.resolve('../react'),
-    // },
+      'config-forms-react-editor': path.resolve('../react-editor'),
+    },
   },
 };
