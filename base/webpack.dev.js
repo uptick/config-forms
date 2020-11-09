@@ -21,11 +21,11 @@ module.exports = {
     ]
   },
   externals: {
-    "react": {
-      commonjs: "react",
-      commonjs2: "react",
-      amd: "React",
-      root: "React"
+    'react': {
+      commonjs: 'react',
+      commonjs2: 'react',
+      amd: 'React',
+      root: 'React'
     }
   }
 };
