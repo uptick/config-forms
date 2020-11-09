@@ -1,10 +1,21 @@
-import React from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
+import WebRenderer from 'config-forms-react'
+
+import SampleForm from '../../docs/sample-form.json'
 
 function DemoSampleForm(props) {
+  const [value, setValue] = useState({})
   return (
     <>
-      <p>Demo Sample Form</p>
+      <WebRenderer
+        config={SampleForm}
+        value={value}
+        onChange={(newValue) => {
+          setValue(newValue)
+        }}
+      />
+      <p>Form value: "{JSON.stringify(value)}"</p>
     </>
   )
 }

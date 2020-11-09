@@ -18,7 +18,7 @@
     "build": "npm run build:js && npm run build:css"
   },
   "dependencies": {
-    "config-forms-react": "^0.0.1",
+    "config-forms-react": "^0.0.13",
     "react": "^16.9.0",
     "react-dom": "^16.9.0",
     "uptick-demo-site": "^1.2.2"
