@@ -23,8 +23,12 @@ module.exports = {
   },
   externals: NodeExternals(),
   resolve: {
+    modules: [
+      path.resolve('src'),
+    ],
     alias: {
-      'config-forms': path.resolve('../base'),
+      'config-forms': path.resolve(__dirname, '../base'),
+      'config-forms-react': path.resolve(__dirname, '../react'),
     },
   },
 }

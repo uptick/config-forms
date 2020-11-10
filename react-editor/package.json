@@ -10,8 +10,8 @@
   "scripts": {
     "build:js": "./node_modules/.bin/webpack --config webpack.build.js",
     "watch:js": "./node_modules/.bin/webpack --config webpack.dev.js --watch",
-    "build:css": "./node_modules/.bin/stylus src/index.styl -o dist/config-forms-react.css",
-    "watch:css": "./node_modules/.bin/stylus src/index.styl -o dist/config-forms-react.css --watch",
+    "build:css": "./node_modules/.bin/stylus src/index.styl -o dist/config-forms-react-editor.css",
+    "watch:css": "./node_modules/.bin/stylus src/index.styl -o dist/config-forms-react-editor.css --watch",
     "build": "npm run build:js && npm run build:css",
     "watch": "./node_modules/.bin/concurrently \"npm run watch:js\" \"npm run watch:css\"",
     "prepare": "npm run build"
@@ -23,6 +23,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "config-forms": "^0.0.10",
+    "config-forms-react": "^0.0.13",
     "mireco": "^0.0.22",
     "prop-types": "^15.7.2",
     "react": "^16.9.0",

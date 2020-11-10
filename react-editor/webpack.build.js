@@ -11,9 +11,9 @@ module.exports = {
   },
   plugins: [
     ...devCfg.plugins || [],
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      reportFilename: path.resolve(__dirname, 'report.html'),
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'static',
+    //   reportFilename: path.resolve(__dirname, 'report.html'),
+    // }),
   ],
 }

@@ -1,0 +1,4 @@
+export default {
+  EXISTING: 'CONFIG_FORMS_EXISTING',
+  NEW: 'CONFIG_FORMS_NEW',
+}

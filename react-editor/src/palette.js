@@ -2,15 +2,12 @@ import React from 'react'
 import { useDrag } from 'react-dnd'
 import PropTypes from 'prop-types'
 
-const TYPES = {
-  FIELD: 'CONFIG_FORMS_FIELD',
-  LAYOUT: 'CONFIG_FORMS_LAYOUT',
-}
+import TYPES from 'dnd-types.js'
 
 function FieldItem(props) {
   const [{ opacity }, dragRef] = useDrag({
     item: {
-      type: TYPES.FIELD,
+      type: TYPES.NEW,
       value: props.value
     },
     collect: (monitor) => ({

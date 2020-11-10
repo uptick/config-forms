@@ -1,0 +1,35 @@
+.MIRECO-text, .MIRECO-textarea
+  &.paragraph
+    padding: 0
+    background: none
+    border: none
+    outline: none
+    &:focus
+      box-shadow: none
+
+div.draggable
+  position: relative
+  display: flex
+  flex-direction: row
+  div.handle
+    flex-basis: 0.8rem
+    margin-right: 0.5rem
+    margin-bottom: 0.5rem
+    cursor: move
+    background-image: radial-gradient(#444 25%, #eee 25%)
+    background-position: 0 0
+    background-size: 0.4rem 0.4rem
+  div.contents
+    flex: 1
+  button.delete
+    position: absolute
+    top: 0
+    right: 0
+    display: none
+    background: #d00 !important
+    border: none !important
+    padding: 0.25rem
+    line-height: 1em
+  &:hover
+    button.delete
+      display: block
