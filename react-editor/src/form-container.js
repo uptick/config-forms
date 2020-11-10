@@ -15,7 +15,11 @@ function FormContainer(props) {
       </div>
     )
   }
-  return contents
+  return (
+    <div>
+      {contents}
+    </div>
+  )
 }
 FormContainer.defaultProps = {
   showValue: false,

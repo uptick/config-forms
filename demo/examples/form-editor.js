@@ -1,14 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import WebEditor from 'config-forms-react-editor'
+import WebEditor, { Palette } from 'config-forms-react-editor'
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 
 function DemoFormEditor(props) {
   return (
     <>
-      <WebEditor
-        config={{}}
-        value={{}}
-      />
+      <DndProvider backend={HTML5Backend}>
+        <Palette />
+        <WebEditor
+          config={{}}
+          value={{}}
+        />
+      </DndProvider>
     </>
   )
 }

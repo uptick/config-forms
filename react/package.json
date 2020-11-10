@@ -24,7 +24,9 @@
     "classnames": "^2.2.6",
     "config-forms": "^0.0.10",
     "mireco": "^0.0.22",
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.12.3",
@@ -35,6 +37,8 @@
     "concurrently": "^5.3.0",
     "stylus": "^0.54.5",
     "webpack": "^5.4.0",
-    "webpack-cli": "^4.2.0"
+    "webpack-bundle-analyzer": "^4.1.0",
+    "webpack-cli": "^4.2.0",
+    "webpack-node-externals": "^2.5.2"
   }
 }

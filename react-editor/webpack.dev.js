@@ -1,4 +1,5 @@
-const path = require('path');
+const path = require('path')
+const NodeExternals = require('webpack-node-externals')
 
 module.exports = {
   mode: 'development',
@@ -7,36 +8,23 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'config-forms-react-editor.js',
     libraryTarget: 'umd',
-    library: 'config-forms-react-editor'
+    library: 'config-forms-react-editor',
   },
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.js$/,
         exclude: /node_modules/,
         use: {
-          loader: 'babel-loader'
-        }
-      }
-    ]
+          loader: 'babel-loader',
+        },
+      },
+    ],
   },
-  externals: {
-    'react': {
-      commonjs: 'react',
-      commonjs2: 'react',
-      amd: 'React',
-      root: 'React'
-    },
-    'react-dom': {
-      commonjs: 'react-dom',
-      commonjs2: 'react-dom',
-      amd: 'ReactDOM',
-      root: 'ReactDOM'
-    }
-  },
+  externals: NodeExternals(),
   resolve: {
     alias: {
-      'config-forms': path.resolve('../base')
-    }
-  }
-};
+      'config-forms': path.resolve('../base'),
+    },
+  },
+}
