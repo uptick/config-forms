@@ -19,8 +19,10 @@ div.draggable
     background-image: radial-gradient(#444 25%, #eee 25%)
     background-position: 0 0
     background-size: 0.4rem 0.4rem
+    // z-index: 11
   div.contents
     flex: 1
+    position: relative
   button.delete
     position: absolute
     top: 0
@@ -33,3 +35,14 @@ div.draggable
   &:hover
     button.delete
       display: block
+  div.drop-adjacent
+    position: absolute
+    height: 50%
+    width: 100%
+    left: 0
+    &.before
+      top: 0
+      background: rgba(255, 0, 0, 0.05)
+    &.after
+      bottom: 0
+      background: rgba(0, 255, 0, 0.05)

@@ -20,7 +20,7 @@ function Text(props) {
   }
   return (
     <>
-      <Draggable onDelete={handleDelete}>
+      <Draggable onDelete={handleDelete} fieldKey={props.fieldKey} onDrop={props.context.onDrop}>
         <Textarea
           className="paragraph"
           minRows={1}
@@ -42,6 +42,7 @@ function Text(props) {
 Text.propTypes = {
   fieldKey: PropTypes.string,
   onChange: PropTypes.func.isRequired,
+  context: PropTypes.object.isRequired,
 }
 
 export default Text
