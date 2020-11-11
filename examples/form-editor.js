@@ -23,25 +23,7 @@ function DemoFormEditor(props) {
   return (
     <>
       <DndProvider backend={HTML5Backend}>
-        <Palette
-          itemTypes={[
-            {
-              itemType: 'FIELD',
-              key: 'text',
-              label: 'Text',
-            },
-            {
-              itemType: 'FIELD',
-              key: 'textarea',
-              label: 'Text Area',
-            },
-            {
-              itemType: 'FIELD',
-              key: 'checkbox',
-              label: 'Checkbox',
-            },
-          ]}
-        />
+        <Palette />
         <WebEditor
           config={config}
           onChange={(newConfig) => {
