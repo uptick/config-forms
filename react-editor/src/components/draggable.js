@@ -20,7 +20,30 @@ function Draggable(props) {
   const [{ isDragHappening }, beforeDrop] = useDrop({
     accept: [TYPES.EXISTING, TYPES.NEW],
     drop: (item) => {
-      props.onDrop(item.value, 'before', props.fieldKey)
+      switch (item.type) {
+        case TYPES.NEW: {
+          props.onDropNew(
+            item.value,
+            'before',
+            {
+              type: 'field',
+              field: props.fieldKey,
+            }
+          )
+          break
+        }
+        case TYPES.EXISTING: {
+          props.onDropExisting(
+            item.value,
+            'before',
+            {
+              type: 'field',
+              field: props.fieldKey,
+            }
+          )
+          break
+        }
+      }
     },
     collect: (monitor) => ({
       isDragHappening: monitor.getItem() !== null,
@@ -29,7 +52,30 @@ function Draggable(props) {
   const [afterCollectedProps, afterDrop] = useDrop({
     accept: [TYPES.EXISTING, TYPES.NEW],
     drop: (item) => {
-      props.onDrop(item.value, 'after', props.fieldKey)
+      switch (item.type) {
+        case TYPES.NEW: {
+          props.onDropNew(
+            item.value,
+            'after',
+            {
+              type: 'field',
+              field: props.fieldKey,
+            }
+          )
+          break
+        }
+        case TYPES.EXISTING: {
+          props.onDropExisting(
+            item.value,
+            'after',
+            {
+              type: 'field',
+              field: props.fieldKey,
+            }
+          )
+          break
+        }
+      }
     },
   })
   const deletable = typeof props.onDelete === 'function'
@@ -60,7 +106,8 @@ function Draggable(props) {
 Draggable.propTypes = {
   children: PropTypes.node,
   onDelete: PropTypes.func,
-  onDrop: PropTypes.func,
+  onDropNew: PropTypes.func,
+  onDropExisting: PropTypes.func,
   fieldKey: PropTypes.string,
 }
 

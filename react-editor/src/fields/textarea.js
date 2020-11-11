@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { Textarea, Text as TextInput } from 'mireco'
+import { Textarea as TextareaInput, Text } from 'mireco'
 
 import { Draggable } from 'components'
 
-function Text(props) {
+function Textarea(props) {
   const handleLabelChange = (newLabel) => {
     props.onChange(props.fieldKey, {
       label: newLabel,
@@ -26,7 +26,7 @@ function Text(props) {
         onDropNew={props.context.onDropNew}
         onDropExisting={props.context.onDropExisting}
       >
-        <Textarea
+        <TextareaInput
           className="paragraph"
           minRows={1}
           placeholder="Type label here"
@@ -34,7 +34,7 @@ function Text(props) {
           value={props.label}
           onChange={handleLabelChange}
         />
-        <TextInput
+        <TextareaInput
           block
           value={props.placeholder || ''}
           placeholder="Text"
@@ -44,10 +44,10 @@ function Text(props) {
     </>
   )
 }
-Text.propTypes = {
+Textarea.propTypes = {
   fieldKey: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   context: PropTypes.object.isRequired,
 }
 
-export default Text
+export default Textarea

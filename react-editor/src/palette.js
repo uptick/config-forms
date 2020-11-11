@@ -15,7 +15,7 @@ function FieldItem(props) {
     }),
   })
   return (
-    <p ref={dragRef} style={{opacity: opacity}}>{props.children}</p>
+    <li ref={dragRef} style={{opacity: opacity}}>{props.children}</li>
   )
 }
 FieldItem.propTypes = {
@@ -25,12 +25,20 @@ FieldItem.propTypes = {
 
 function Palette(props) {
   return (
-    <>
-      <p>This is the palette of items</p>
-      <FieldItem value="text">Text</FieldItem>
-      <FieldItem value="textarea">Text Area</FieldItem>
-    </>
+    <ul className="CONFORM-palette">
+      {props.itemTypes.map((itemType) => {
+        return (<FieldItem key={itemType.key} value={itemType.key}>{itemType.label}</FieldItem>)
+      })}
+    </ul>
   )
+}
+Palette.propTypes = {
+  itemTypes: PropTypes.arrayOf(PropTypes.shape({
+    itemType: PropTypes.oneOf(['FIELD', 'LAYOUT']),
+    key: PropTypes.string,
+    label: PropTypes.string,
+    config: PropTypes.object,
+  })).isRequired,
 }
 
 export default Palette

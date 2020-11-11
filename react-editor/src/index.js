@@ -8,6 +8,8 @@ import * as layout from './layout'
 
 const fieldRenderers = {
   text: fields.Text,
+  textarea: fields.Textarea,
+  checkbox: fields.Checkbox,
 }
 const layoutRenderers = {
   container: layout.Container,
@@ -15,10 +17,19 @@ const layoutRenderers = {
 
 export { Palette }
 
+function layoutItemsMatch(itemOne, itemTwo) {
+  if (itemOne.type !== itemTwo.type) {
+    return false
+  }
+  switch (itemOne.type) {
+    case 'field':
+      return itemOne.field === itemTwo.field
+  }
+}
 function removeItemFromLayout(layout, item) {
   const pruned = []
   layout.map(layoutItem => {
-    if (layoutItem.type === 'field' && layoutItem.field === item) {
+    if (layoutItemsMatch(layoutItem, item)) {
       return
     }
     if (layoutItem.type === 'container') {
@@ -35,8 +46,9 @@ function removeItemFromLayout(layout, item) {
 }
 function placeAdjacentInLayout(layout, item, position, relativeTo) {
   const updated = []
-  layout.map(layoutItem => {
-    if (layoutItem.type === 'field' && layoutItem.field === relativeTo) {
+  const removed = removeItemFromLayout(layout, item)
+  removed.map(layoutItem => {
+    if (layoutItemsMatch(layoutItem, relativeTo)) {
       if (position === 'before') {
         updated.push(item)
         updated.push(layoutItem)
@@ -63,12 +75,12 @@ function placeAdjacentInLayout(layout, item, position, relativeTo) {
 function itemIsInLayout(layout, item) {
   let found = false
   layout.map(layoutItem => {
-    if (layoutItem.type === 'field' && layoutItem.field === item) {
+    if (layoutItemsMatch(layoutItem, item)) {
       found = true
       return
     }
     if (layoutItem.type === 'container') {
-      const foundInContainer = itemIsInLayout(layoutItem.contents || [])
+      const foundInContainer = itemIsInLayout(layoutItem.contents || [], item)
       if (foundInContainer) {
         found = true
         return
@@ -80,48 +92,48 @@ function itemIsInLayout(layout, item) {
 
 function WebEditor(props) {
   const handleChange = (updates) => {
-    const mergedConfig = {
+    const updatedConfig = {
       ...props.config,
       fields: {
         ...props.config.fields,
       },
+      layout: [
+        ...props.config.layout || [],
+      ],
     }
     for (var key in updates) {
       if (updates[key] === null) {
-        if (key in mergedConfig.fields) {
-          delete mergedConfig.fields[key]
+        if (key in updatedConfig.fields) {
+          delete updatedConfig.fields[key]
         }
+        updatedConfig.layout = removeItemFromLayout(updatedConfig.layout, {
+          type: 'field',
+          field: key,
+        })
         continue
       }
-      mergedConfig.fields[key] = {
+      updatedConfig.fields[key] = {
         ...props.config.fields[key],
         ...updates[key],
       }
     }
-    props.onChange(mergedConfig)
+    props.onChange(updatedConfig)
   }
-  const handleDrop = (field, position, relativeTo) => {
+  const handleDropExisting = (field, position, relativeTo) => {
     console.log('dropped', field, position, relativeTo)
-    const placeRelative = (layout, field, position, relativeTo) => {
-      let updatedLayout = removeItemFromLayout(layout, field)
-      updatedLayout = placeAdjacentInLayout(
-        updatedLayout,
-        {
-          type: 'field',
-          field,
-        },
-        position,
-        relativeTo
-      )
-      return updatedLayout
-    }
-    let newLayout = placeRelative(props.config.layout || [], field, position, relativeTo)
-    if (!itemIsInLayout(newLayout, field)) {
-      console.log('we were not able to place it relative!!')
+    let newLayout = placeAdjacentInLayout(
+      props.config.layout || [],
+      {
+        type: 'field',
+        field,
+      },
+      position,
+      relativeTo
+    )
+    if (!itemIsInLayout(newLayout, {type: 'field', field})) {
       // put all unmentioned fields into config
       for (var fieldKey in props.config.fields || {}) {
-        if (!itemIsInLayout(newLayout, fieldKey)) {
-          console.log('setting default for field', fieldKey)
+        if (!itemIsInLayout(newLayout, {type: 'field', field: fieldKey})) {
           newLayout.push({
             type: 'field',
             field: fieldKey,
@@ -129,13 +141,72 @@ function WebEditor(props) {
         }
       }
       // then try the placement again
-      newLayout = placeRelative(newLayout || [], field, position, relativeTo)
+      newLayout = placeAdjacentInLayout(
+        newLayout,
+        {
+          type: 'field',
+          field,
+        },
+        position,
+        relativeTo
+      )
     }
-    const updatedConfig = {
+    props.onChange({
       ...props.config,
       layout: newLayout,
+    })
+  }
+  const handleDropNew = (fieldType, position, relativeTo) => {
+    console.log('dropped new', fieldType, position, relativeTo)
+    let newIndex = 1
+    const defaultKey = (index) => {
+      return `${fieldType}_${index}`
     }
-    props.onChange(updatedConfig)
+    while (defaultKey(newIndex) in (props.config.fields || {})) {
+      newIndex++
+    }
+    const newFieldKey = defaultKey(newIndex)
+    const newFields = {
+      ...props.config.fields,
+      [newFieldKey]: {
+        type: fieldType,
+      },
+    }
+    let newLayout = placeAdjacentInLayout(
+      props.config.layout || [],
+      {
+        type: 'field',
+        field: newFieldKey,
+      },
+      position,
+      relativeTo
+    )
+    if (!itemIsInLayout(newLayout, {type: 'field', field: newFieldKey})) {
+      // put all unmentioned fields into config
+      for (var fieldKey in props.config.fields || {}) {
+        if (!itemIsInLayout(newLayout, {type: 'field', field: fieldKey})) {
+          newLayout.push({
+            type: 'field',
+            field: fieldKey,
+          })
+        }
+      }
+      // then try the placement again
+      newLayout = placeAdjacentInLayout(
+        newLayout,
+        {
+          type: 'field',
+          field: newFieldKey,
+        },
+        position,
+        relativeTo
+      )
+    }
+    props.onChange({
+      ...props.config,
+      fields: newFields,
+      layout: newLayout,
+    })
   }
   return (
     <BaseRenderer
@@ -148,7 +219,8 @@ function WebEditor(props) {
       formRenderer={WebEditor}
       context={{
         ...props.context,
-        onDrop: handleDrop,
+        onDropNew: handleDropNew,
+        onDropExisting: handleDropExisting,
       }}
     />
   )
