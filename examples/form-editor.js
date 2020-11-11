@@ -10,11 +10,11 @@ function DemoFormEditor(props) {
     fields: {
       test_text_1: {
         type: 'text',
-        label: 'Hi there this is a label',
-        placeholder: 'Test',
+        label: 'The First Text',
       },
       test_text_2: {
         type: 'text',
+        label: 'The Second Text',
         placeholder: 'And the text input',
       },
     },
@@ -23,7 +23,25 @@ function DemoFormEditor(props) {
   return (
     <>
       <DndProvider backend={HTML5Backend}>
-        <Palette />
+        <Palette
+          itemTypes={[
+            {
+              itemType: 'FIELD',
+              key: 'text',
+              label: 'Text',
+            },
+            {
+              itemType: 'FIELD',
+              key: 'textarea',
+              label: 'Text Area',
+            },
+            {
+              itemType: 'FIELD',
+              key: 'checkbox',
+              label: 'Checkbox',
+            },
+          ]}
+        />
         <WebEditor
           config={config}
           onChange={(newConfig) => {
