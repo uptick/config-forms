@@ -119,18 +119,15 @@ function WebEditor(props) {
     }
     props.onChange(updatedConfig)
   }
-  const handleDropExisting = (field, position, relativeTo) => {
-    console.log('dropped', field, position, relativeTo)
+  const handleDropExisting = (item, position, relativeTo) => {
+    console.log('dropped existing', item, position, relativeTo)
     let newLayout = placeAdjacentInLayout(
       props.config.layout || [],
-      {
-        type: 'field',
-        field,
-      },
+      item,
       position,
       relativeTo
     )
-    if (!itemIsInLayout(newLayout, {type: 'field', field})) {
+    if (!itemIsInLayout(newLayout, item)) {
       // put all unmentioned fields into config
       for (var fieldKey in props.config.fields || {}) {
         if (!itemIsInLayout(newLayout, {type: 'field', field: fieldKey})) {
@@ -143,10 +140,7 @@ function WebEditor(props) {
       // then try the placement again
       newLayout = placeAdjacentInLayout(
         newLayout,
-        {
-          type: 'field',
-          field,
-        },
+        item,
         position,
         relativeTo
       )
@@ -156,32 +150,40 @@ function WebEditor(props) {
       layout: newLayout,
     })
   }
-  const handleDropNew = (fieldType, position, relativeTo) => {
-    console.log('dropped new', fieldType, position, relativeTo)
-    let newIndex = 1
-    const defaultKey = (index) => {
-      return `${fieldType}_${index}`
-    }
-    while (defaultKey(newIndex) in (props.config.fields || {})) {
-      newIndex++
-    }
-    const newFieldKey = defaultKey(newIndex)
+  const handleDropNew = (item, position, relativeTo) => {
+    console.log('dropped new', item, position, relativeTo)
     const newFields = {
       ...props.config.fields,
-      [newFieldKey]: {
-        type: fieldType,
-      },
+    }
+    let layoutItem = item
+    if (item.type === 'field') {
+      let newIndex = 1
+      const defaultKey = (index) => {
+        return `${item.fieldType}_${index}`
+      }
+      while (defaultKey(newIndex) in (props.config.fields || {})) {
+        newIndex++
+      }
+      const newFieldKey = defaultKey(newIndex)
+      newFields[newFieldKey] = {
+        ...item,
+        type: item.fieldType,
+      }
+      if ('fieldType' in newFields[newFieldKey]) {
+        delete newFields[newFieldKey].fieldType
+      }
+      layoutItem = {
+        type: 'field',
+        field: newFieldKey,
+      }
     }
     let newLayout = placeAdjacentInLayout(
       props.config.layout || [],
-      {
-        type: 'field',
-        field: newFieldKey,
-      },
+      layoutItem,
       position,
       relativeTo
     )
-    if (!itemIsInLayout(newLayout, {type: 'field', field: newFieldKey})) {
+    if (!itemIsInLayout(newLayout, layoutItem)) {
       // put all unmentioned fields into config
       for (var fieldKey in props.config.fields || {}) {
         if (!itemIsInLayout(newLayout, {type: 'field', field: fieldKey})) {
@@ -194,10 +196,7 @@ function WebEditor(props) {
       // then try the placement again
       newLayout = placeAdjacentInLayout(
         newLayout,
-        {
-          type: 'field',
-          field: newFieldKey,
-        },
+        layoutItem,
         position,
         relativeTo
       )

@@ -10,7 +10,10 @@ function Draggable(props) {
   const [{ isBeingDragged, visibility }, drag, preview] = useDrag({
     item: {
       type: TYPES.EXISTING,
-      value: props.fieldKey,
+      value: {
+        type: 'field',
+        field: props.fieldKey,
+      },
     },
     collect: (monitor) => ({
       isBeingDragged: monitor.isDragging(),
