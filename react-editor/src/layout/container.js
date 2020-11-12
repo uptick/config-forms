@@ -6,7 +6,7 @@ import { Draggable } from 'components'
 
 function Container(props) {
   const handleDelete = () => {
-    console.log('delete of container at', props.layoutPath)
+    props.context.onLayoutChange(props.layoutPath, null)
   }
   if (!props.style) {
     return (<layoutRenderers.container {...props} />)
