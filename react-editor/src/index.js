@@ -165,7 +165,7 @@ function WebEditor(props) {
       }
       relativeToPath = getFieldPath(updatedConfig.layout, relativeTo.field)
     }
-    if (relativeToPath) {
+    if (typeof relativeToPath === 'string') {
       updatedConfig.layout = insertIntoLayout(
         updatedConfig.layout,
         layoutItem,

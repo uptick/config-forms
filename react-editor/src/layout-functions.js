@@ -18,29 +18,33 @@ export function getFieldPath(layout, fieldKey, currentPath='') {
 
 export function insertIntoLayout(layout, item, position, path, currentPath='') {
   const updated = []
+  if (position === 'inside' && path === currentPath) {
+    updated.push(item)
+  }
   layout.map((layoutItem, childIndex) => {
     const childPath = `${currentPath ? `${currentPath}.` : ''}${childIndex}`
-    console.log('checking', childPath, 'with', path)
+    let updatedItem = layoutItem
+    if (layoutItem.type === 'container') {
+      updatedItem = {
+        ...updatedItem,
+        contents: insertIntoLayout(layoutItem.contents || [], item, position, path, childPath),
+      }
+    }
     if (childPath === path) {
       if (position === 'before') {
         updated.push(item)
-        updated.push(layoutItem)
+        updated.push(updatedItem)
+      }
+      else if (position === 'after') {
+        updated.push(updatedItem)
+        updated.push(item)
       }
       else {
-        updated.push(layoutItem)
-        updated.push(item)
+        updated.push(updatedItem)
       }
     }
     else {
-      if (layoutItem.type === 'container') {
-        updated.push({
-          ...layoutItem,
-          contents: insertIntoLayout(layoutItem.contents || [], item, position, path, childPath),
-        })
-      }
-      else {
-        updated.push(layoutItem)
-      }
+      updated.push(updatedItem)
     }
   })
   return updated

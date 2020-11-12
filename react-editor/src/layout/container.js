@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { layoutRenderers } from 'config-forms-react'
 import { Text } from 'mireco'
 
-import { Draggable } from 'components'
+import { Draggable, ContentBox } from 'components'
 
 function Container(props) {
   const handleTitleChange = (newTitle) => {
@@ -14,15 +14,32 @@ function Container(props) {
   const handleDelete = () => {
     props.context.onLayoutChange(props.layoutPath, null)
   }
+  const identifier = {
+    type: 'layout',
+    path: props.layoutPath,
+  }
+  let containerChildren = props.children
+  if (!containerChildren || (Array.isArray(containerChildren) && containerChildren.length == 0)) {
+    containerChildren = (
+      <ContentBox
+        identifier={identifier}
+        onDropNew={props.context.onDropNew}
+        onDropExisting={props.context.onDropExisting}
+      />
+    )
+  }
   if (!props.style) {
-    return (<layoutRenderers.container {...props} />)
+    return (
+      <layoutRenderers.container
+        {...props}
+      >
+        {containerChildren}
+      </layoutRenderers.container>
+    )
   }
   return (
     <Draggable
-      identifier={{
-        type: 'layout',
-        path: props.layoutPath,
-      }}
+      identifier={identifier}
       onDelete={handleDelete}
       onDropNew={props.context.onDropNew}
       onDropExisting={props.context.onDropExisting}
@@ -36,7 +53,12 @@ function Container(props) {
           className="paragraph CONFORM-editable-card-title"
         />
       )}
-      <layoutRenderers.container {...props} title={undefined} />
+      <layoutRenderers.container
+        {...props}
+        title={undefined}
+      >
+        {containerChildren}
+      </layoutRenderers.container>
     </Draggable>
   )
 }
