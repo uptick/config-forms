@@ -37,6 +37,28 @@
 //   return updated
 // }
 
+export function updateLayoutPath(layout, path, changes, currentPath='') {
+  const updated = []
+  layout.map((layoutItem, childIndex) => {
+    const childPath = `${currentPath ? `${currentPath}.` : ''}${childIndex}`
+    let updatedItem = layoutItem
+    if (childPath === path) {
+      updatedItem = {
+        ...updatedItem,
+        ...changes,
+      }
+    }
+    if (updatedItem.type === 'container') {
+      updatedItem = {
+        ...updatedItem,
+        children: updateLayoutPath(updatedItem.contents || [], path, changes, childPath),
+      }
+    }
+    updated.push(updatedItem)
+  })
+  return updated
+}
+
 export function getFieldsFromLayoutPath(layout, path, currentPath='') {
   let fields = []
   layout.map((layoutItem, childIndex) => {

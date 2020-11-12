@@ -1,10 +1,16 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { layoutRenderers } from 'config-forms-react'
+import { Text } from 'mireco'
 
 import { Draggable } from 'components'
 
 function Container(props) {
+  const handleTitleChange = (newTitle) => {
+    props.context.onLayoutChange(props.layoutPath, {
+      title: newTitle,
+    })
+  }
   const handleDelete = () => {
     props.context.onLayoutChange(props.layoutPath, null)
   }
@@ -18,7 +24,16 @@ function Container(props) {
       onDropNew={props.context.onDropNew}
       onDropExisting={props.context.onDropExisting}
     >
-      <layoutRenderers.container {...props} />
+      {props.style === 'card' && (
+        <Text
+          value={props.title || ''}
+          onChange={handleTitleChange}
+          placeholder="Title"
+          block
+          className="paragraph CONFORM-editable-card-title"
+        />
+      )}
+      <layoutRenderers.container {...props} title={undefined} />
     </Draggable>
   )
 }

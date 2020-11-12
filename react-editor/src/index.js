@@ -9,6 +9,7 @@ import {
   removeFieldFromLayout,
   removePathFromLayout,
   getFieldsFromLayoutPath,
+  updateLayoutPath,
 } from './layout-functions.js'
 
 const fieldRenderers = {
@@ -67,6 +68,13 @@ function WebEditor(props) {
         })
       }
       updatedConfig.layout = removePathFromLayout(updatedConfig.layout || [], layoutPath)
+      props.onChange(updatedConfig)
+    }
+    else {
+      const updatedConfig = {
+        ...props.config,
+      }
+      updatedConfig.layout = updateLayoutPath(updatedConfig.layout, layoutPath, changes)
       props.onChange(updatedConfig)
     }
   }
