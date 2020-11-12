@@ -10,13 +10,16 @@
 ul.CONFORM-palette
   list-style: none
   margin: 0
+  margin-bottom: 1rem
   padding: 0
   li
     display: block
     padding: 0.25rem 0.5rem
     margin: 0
-    margin-bottom: 1rem
+    margin-bottom: 0.5rem
     border: 1px solid #333
+    background: #fff
+    font-size: 1rem
 
 div.draggable
   position: relative
@@ -25,7 +28,7 @@ div.draggable
   div.handle
     flex-basis: 0.8rem
     margin-right: 0.5rem
-    margin-bottom: 0.5rem
+    margin-bottom: 1rem
     cursor: move
     background-image: radial-gradient(#444 25%, #eee 25%)
     background-position: 0 0
@@ -44,7 +47,7 @@ div.draggable
     padding: 0.25rem
     line-height: 1em
   &:hover
-    button.delete
+    > button.delete
       display: block
   div.drop-adjacent
     position: absolute

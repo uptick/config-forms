@@ -7,7 +7,7 @@ module.exports = {
   mode: 'production',
   resolve: {
     ...devCfg.resolve,
-    alias: undefined,
+    // alias: undefined,
   },
   plugins: [
     ...devCfg.plugins || [],

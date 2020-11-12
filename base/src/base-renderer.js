@@ -11,12 +11,14 @@ class BaseRenderer extends React.PureComponent {
     onChange: PropTypes.func,
     subform: PropTypes.bool,
     context: PropTypes.object,
+    layoutPath: PropTypes.string,
   }
   static defaultProps = {
     formRenderer: BaseRenderer,
     subform: false,
     style: 'none',
     editable: true,
+    layoutPath: '',
   }
 
   onFieldChange = (key, value) => {
@@ -63,7 +65,7 @@ class BaseRenderer extends React.PureComponent {
 
     let renderedFields = {}
     let layoutItemIndex = 0
-    let renderField = (field) => {
+    let renderField = (field, layoutPath, layoutIndex) => {
       if (field.key in config.fields === false) {
         console.warn('Tried to render unknown field:', field.key)
         return null
@@ -111,6 +113,7 @@ class BaseRenderer extends React.PureComponent {
                       this.onFieldChange(field.key, updatedSet)
                     }}
                     context={this.props.context}
+                    layoutPath={`${layoutPath ? `${layoutPath}.` : ''}${layoutIndex}.${subformIndex}`}
                   />
                 </ControlsRenderer>
               )
@@ -130,6 +133,7 @@ class BaseRenderer extends React.PureComponent {
                     this.onFieldChange(field.key, updatedSet)
                   }}
                   context={this.props.context}
+                  layoutPath={`${layoutPath ? `${layoutPath}.` : ''}${layoutIndex}`}
                 />
               )
             }
@@ -161,6 +165,7 @@ class BaseRenderer extends React.PureComponent {
                 this.onFieldChange(field.key, newValue)
               }}
               context={this.props.context}
+              layoutPath={`${layoutPath ? `${layoutPath}.` : ''}${layoutIndex}`}
             />
           )
         }
@@ -183,17 +188,18 @@ class BaseRenderer extends React.PureComponent {
             onChange={this.onFieldChange}
             onGroupSet={this.onFieldGroupSet}
             context={this.props.context}
+            layoutPath={`${layoutPath ? `${layoutPath}.` : ''}${layoutIndex}`}
             {...fieldConfig}
           />
         )
       }
     }
-    let renderLayoutChildren = (children, containerHierarchy=[]) => {
+    let renderLayoutChildren = (children, containerHierarchy=[], layoutPath='') => {
       if (!Array.isArray(children)) {
         return null
       }
       let renderedChildren = []
-      children.map((child) => {
+      children.map((child, childIndex) => {
         if (child.type === 'container') {
           let ContainerRenderer = (
             this.props.layoutRenderers.container
@@ -210,37 +216,47 @@ class BaseRenderer extends React.PureComponent {
               {...child}
               containerHierarchy={containerHierarchy}
               context={this.props.context}
+              layoutPath={`${layoutPath ? `${layoutPath}.` : ''}${childIndex}`}
             >
-              {renderLayoutChildren(child.contents, [
-                ...containerHierarchy,
-                child.style,
-              ])}
+              {renderLayoutChildren(
+                child.contents,
+                [
+                  ...containerHierarchy,
+                  child.style,
+                ],
+                `${layoutPath ? `${layoutPath}.` : ''}${childIndex}`
+              )}
             </ContainerRenderer>
           )
         }
         else if (child.type === 'field') {
-          let rendered = renderField({
-            key: child.field,
-            ...config.fields[child.field],
-          })
+          let rendered = renderField(
+            {
+              key: child.field,
+              ...config.fields[child.field],
+            },
+            layoutPath,
+            childIndex
+          )
           if (rendered) {
             renderedChildren.push(rendered)
           }
         }
         else {
-          let Renderer = (
+          let LayoutRenderer = (
             this.props.layoutRenderers[child.type]
             || this.props.layoutRenderers.placeholder
           )
-          if (!Renderer) {
+          if (!LayoutRenderer) {
             console.warn('Bad layout renderer for:', child.type)
             return
           }
           layoutItemIndex += 1
           renderedChildren.push(
-            <Renderer
+            <LayoutRenderer
               key={`layout-${layoutItemIndex}`}
               context={this.props.context}
+              layoutPath={`${layoutPath ? `${layoutPath}.` : ''}${childIndex}`}
               {...child}
             />
           )
@@ -249,15 +265,19 @@ class BaseRenderer extends React.PureComponent {
       return renderedChildren
     }
 
-    let contents = renderLayoutChildren(config.layout || [])
+    let contents = renderLayoutChildren(config.layout || [], [], this.props.layoutPath)
     if (config.fields) {
       let keys = Object.keys(config.fields).sort()
       keys.map((key) => {
         if (key in renderedFields === false) {
-          let rendered = renderField({
-            key: key,
-            ...config.fields[key],
-          })
+          let rendered = renderField(
+            {
+              key: key,
+              ...config.fields[key],
+            },
+            this.props.layoutPath,
+            contents.length + 1
+          )
           if (rendered) {
             contents.push(rendered)
           }
@@ -270,6 +290,8 @@ class BaseRenderer extends React.PureComponent {
       contents = (
         <StyleWrapper
           {...this.props.config}
+          context={this.props.context}
+          layoutPath={this.props.layoutPath}
         >
           {contents}
         </StyleWrapper>
@@ -281,6 +303,7 @@ class BaseRenderer extends React.PureComponent {
         value={this.props.value}
         subform={this.props.subform}
         context={this.props.context}
+        layoutPath={this.props.layoutPath}
       >
         {contents}
       </Container>

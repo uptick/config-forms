@@ -7,13 +7,13 @@ module.exports = {
   mode: 'production',
   resolve: {
     ...devCfg.resolve,
-    alias: undefined,
+    // alias: undefined,
   },
   plugins: [
     ...devCfg.plugins || [],
-    new BundleAnalyzerPlugin({
-      analyzerMode: 'static',
-      reportFilename: path.resolve(__dirname, 'report.html'),
-    }),
+    // new BundleAnalyzerPlugin({
+    //   analyzerMode: 'static',
+    //   reportFilename: path.resolve(__dirname, 'report.html'),
+    // }),
   ],
 }
