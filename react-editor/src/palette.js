@@ -68,7 +68,7 @@ Palette.defaultProps = {
     },
     {
       itemType: 'field',
-      label: 'Checkbox',
+      label: 'Checkbox Input',
       config: {
         fieldType: 'checkbox',
       },
