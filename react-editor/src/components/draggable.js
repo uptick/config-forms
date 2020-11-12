@@ -69,7 +69,6 @@ function Draggable(props) {
   const deletable = typeof props.onDelete === 'function'
   return (
     <>
-      <span ref={preview}></span>
       <div
         className="draggable"
         style={{visibility: visibility}}
@@ -77,7 +76,7 @@ function Draggable(props) {
         <div className="handle" ref={drag} style={{
           opacity: isDragHappening ? 0 : 1,
         }} />
-        <div className="contents">
+        <div className="contents" ref={preview}>
           {!isBeingDragged && isDragHappening && (
             <div className="drop-adjacent before" ref={beforeDrop}></div>
           )}

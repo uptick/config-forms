@@ -14,35 +14,33 @@ function Checkbox(props) {
     props.onChange(props.fieldKey, null)
   }
   return (
-    <>
-      <Draggable
-        identifier={{
-          type: 'field',
-          field: props.fieldKey,
-        }}
-        onDelete={handleDelete}
-        onDropNew={props.context.onDropNew}
-        onDropExisting={props.context.onDropExisting}
-      >
-        <div style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-          marginBottom: '1rem',
-        }}>
-          <CheckboxInput onChange={() => {}} />
-          <Textarea
-            className="paragraph"
-            style={{flex: '1', margin: 0, marginLeft: '0.5rem'}}
-            minRows={1}
-            placeholder="Type label here"
-            block
-            value={props.label}
-            onChange={handleLabelChange}
-          />
-        </div>
-      </Draggable>
-    </>
+    <Draggable
+      identifier={{
+        type: 'field',
+        field: props.fieldKey,
+      }}
+      onDelete={handleDelete}
+      onDropNew={props.context.onDropNew}
+      onDropExisting={props.context.onDropExisting}
+    >
+      <div style={{
+        display: 'flex',
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: '1rem',
+      }}>
+        <CheckboxInput onChange={() => {}} />
+        <Textarea
+          className="paragraph"
+          style={{flex: '1', margin: 0, marginLeft: '0.5rem'}}
+          minRows={1}
+          placeholder="Type label here"
+          block
+          value={props.label}
+          onChange={handleLabelChange}
+        />
+      </div>
+    </Draggable>
   )
 }
 Checkbox.propTypes = {

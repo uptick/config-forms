@@ -64,7 +64,7 @@ export function updateLayoutPath(layout, path, changes, currentPath='') {
     if (updatedItem.type === 'container') {
       updatedItem = {
         ...updatedItem,
-        children: updateLayoutPath(updatedItem.contents || [], path, changes, childPath),
+        contents: updateLayoutPath(updatedItem.contents || [], path, changes, childPath),
       }
     }
     updated.push(updatedItem)

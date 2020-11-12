@@ -58,22 +58,34 @@ div.draggable
     > button.delete
       display: block
   div.drop-adjacent
+    content: ' '
     position: absolute
     height: 50%
     width: 100%
     left: 0
     &.before
       top: 0
-      background: rgba(255, 0, 0, 0.05)
+      background: rgba(0, 0, 0, 0)
+      // background: rgba(255, 0, 0, 0.05)
     &.after
       bottom: 0
-      background: rgba(0, 255, 0, 0.05)
+      background: rgba(0, 0, 0, 0)
+      // background: rgba(0, 255, 0, 0.05)
 
 div.content-box
   position: relative
-  min-height: 3rem
   display: flex
   padding-bottom: 1.5rem
+  p.no-contents
+    margin: 0
+    padding: 0
+    color: #666
+    font-size: 1rem
   div.drop-zone
-    flex: 1
+    content: ' '
+    position: absolute
+    top: -0.5rem
+    left: -0.5rem
+    right: -0.5rem
+    bottom: 0.5rem
     background: rgba(0, 0, 255, 0.05)

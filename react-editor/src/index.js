@@ -21,6 +21,7 @@ const fieldRenderers = {
 }
 const layoutRenderers = {
   container: layout.Container,
+  text: layout.Text,
 }
 
 export { Palette }

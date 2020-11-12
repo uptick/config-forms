@@ -33,6 +33,7 @@ function ContentBox(props) {
   })
   return (
     <div className="content-box">
+      <p className="no-contents">(no contents)</p>
       {isDragHappening && (<div className="drop-zone" ref={insideDrop} />)}
     </div>
   )
