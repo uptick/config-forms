@@ -12,6 +12,9 @@ import {
   updateLayoutPath,
   getFieldPath,
   insertIntoLayout,
+  getLayoutAtPath,
+  pathPlus,
+  cleanLayoutNulls,
 } from './layout-functions.js'
 
 const fieldRenderers = {
@@ -81,36 +84,58 @@ function WebEditor(props) {
       props.onChange(updatedConfig)
     }
   }
+  const ensureRelativeToPath = (layout, relativeTo) => {
+    let updatedLayout = layout
+    let relativeToPath = relativeTo.path
+    if (relativeTo.type === 'field') {
+      const layoutFields = getFieldsFromLayoutPath(updatedLayout, '')
+      // field is not explicitly in layout
+      if (layoutFields.indexOf(relativeTo.field) == -1) {
+        updatedLayout = [
+          ...updatedLayout,
+        ]
+        // so cement all current (not including new) field positions with proper layout
+        for (var fieldKey in props.config.fields || {}) {
+          if (layoutFields.indexOf(fieldKey) === -1) {
+            updatedLayout.push({
+              type: 'field',
+              field: fieldKey,
+            })
+          }
+        }
+      }
+      relativeToPath = getFieldPath(updatedLayout, relativeTo.field)
+    }
+    return [updatedLayout, relativeToPath]
+  }
   const handleDropExisting = (item, position, relativeTo) => {
     console.log('dropped existing', item, position, relativeTo)
-    // let newLayout = placeAdjacentInLayout(
-    //   props.config.layout || [],
-    //   item,
-    //   position,
-    //   relativeTo
-    // )
-    // if (!itemIsInLayout(newLayout, item)) {
-    //   // put all unmentioned fields into config
-    //   for (var fieldKey in props.config.fields || {}) {
-    //     if (!itemIsInLayout(newLayout, {type: 'field', field: fieldKey})) {
-    //       newLayout.push({
-    //         type: 'field',
-    //         field: fieldKey,
-    //       })
-    //     }
-    //   }
-    //   // then try the placement again
-    //   newLayout = placeAdjacentInLayout(
-    //     newLayout,
-    //     item,
-    //     position,
-    //     relativeTo
-    //   )
-    // }
-    // props.onChange({
-    //   ...props.config,
-    //   layout: newLayout,
-    // })
+
+    const updatedConfig = {
+      ...props.config,
+    }
+    const [updatedLayout, relativeToPath] = ensureRelativeToPath(
+      updatedConfig.layout || [],
+      relativeTo
+    )
+    updatedConfig.layout = updatedLayout
+    let movingLayout = null
+    if (item.type === 'layout') {
+      movingLayout = getLayoutAtPath(updatedConfig.layout, item.path)
+      updatedConfig.layout = updateLayoutPath(updatedConfig.layout, item.path, null)
+    }
+    else if (item.type === 'field') {
+      movingLayout = item
+      updatedConfig.layout = removeFieldFromLayout(updatedConfig.layout, item.field)
+    }
+    updatedConfig.layout = insertIntoLayout(
+      updatedConfig.layout,
+      movingLayout,
+      position,
+      relativeToPath
+    )
+    updatedConfig.layout = cleanLayoutNulls(updatedConfig.layout)
+    props.onChange(updatedConfig)
   }
   const handleDropNew = (item, position, relativeTo) => {
     console.log('dropped new', item, position, relativeTo)
@@ -143,29 +168,11 @@ function WebEditor(props) {
         field: newFieldKey,
       }
     }
-    let relativeToPath = relativeTo.path
-    if (relativeTo.type === 'field') {
-      const layoutFields = getFieldsFromLayoutPath(updatedConfig.layout, '')
-      // field is not explicitly in layout
-      if (layoutFields.indexOf(relativeTo.field) == -1) {
-        updatedConfig.layout = [
-          ...updatedConfig.layout,
-        ]
-        // so cement all current (not including new) field positions with proper layout
-        for (var fieldKey in props.config.fields || {}) {
-          if (layoutFields.indexOf(fieldKey) === -1) {
-            updatedConfig.layout = [
-              ...updatedConfig.layout,
-              {
-                type: 'field',
-                field: fieldKey,
-              },
-            ]
-          }
-        }
-      }
-      relativeToPath = getFieldPath(updatedConfig.layout, relativeTo.field)
-    }
+    const [updatedLayout, relativeToPath] = ensureRelativeToPath(
+      updatedConfig.layout || [],
+      relativeTo
+    )
+    updatedConfig.layout = updatedLayout
     if (typeof relativeToPath === 'string') {
       updatedConfig.layout = insertIntoLayout(
         updatedConfig.layout,

@@ -1,3 +1,22 @@
+export function getLayoutAtPath(layout, path, currentPath='') {
+  let match = undefined
+  layout.map((layoutItem, childIndex) => {
+    const childPath = `${currentPath ? `${currentPath}.` : ''}${childIndex}`
+    if (childPath === path) {
+      match = layoutItem
+      return
+    }
+    if (layoutItem.type === 'container') {
+      const childMatch = getLayoutAtPath(layoutItem.contents || [], path, childPath)
+      if (childMatch) {
+        match = childMatch
+        return
+      }
+    }
+  })
+  return match
+}
+
 export function getFieldPath(layout, fieldKey, currentPath='') {
   let path = undefined
   layout.map((layoutItem, childIndex) => {
@@ -23,6 +42,10 @@ export function insertIntoLayout(layout, item, position, path, currentPath='') {
   }
   layout.map((layoutItem, childIndex) => {
     const childPath = `${currentPath ? `${currentPath}.` : ''}${childIndex}`
+    if (layoutItem === null) {
+      updated.push(null)
+      return
+    }
     let updatedItem = layoutItem
     if (layoutItem.type === 'container') {
       updatedItem = {
@@ -56,6 +79,10 @@ export function updateLayoutPath(layout, path, changes, currentPath='') {
     const childPath = `${currentPath ? `${currentPath}.` : ''}${childIndex}`
     let updatedItem = layoutItem
     if (childPath === path) {
+      if (changes === null) {
+        updated.push(null)
+        return
+      }
       updatedItem = {
         ...updatedItem,
         ...changes,
@@ -127,4 +154,37 @@ export function removeFieldFromLayout(layout, fieldKey) {
 
 export function fieldIsInLayout(layout, fieldKey) {
   return getFieldsFromLayoutPath(layout, '').indexOf(fieldKey) != -1
+}
+
+export function pathPlus(path, amount) {
+  const split = path.split('.')
+  const lastItem = split[split.length - 1]
+  if (lastItem === '') {
+    return ''
+  }
+  let start = ''
+  if (split.length > 1) {
+    start = split.slice(0, split.length - 1).join('.') + '.'
+  }
+  console.log('last item is', lastItem, parseInt(lastItem))
+  return start + `${parseInt(lastItem) + amount}`
+}
+
+export function cleanLayoutNulls(layout) {
+  const cleaned = []
+  layout.map(layoutItem => {
+    if (layoutItem === null) {
+      return
+    }
+    if (layoutItem.type === 'container') {
+      cleaned.push({
+        ...layoutItem,
+        contents: cleanLayoutNulls(layoutItem.contents || []),
+      })
+    }
+    else {
+      cleaned.push(layoutItem)
+    }
+  })
+  return cleaned
 }

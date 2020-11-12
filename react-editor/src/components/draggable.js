@@ -7,14 +7,14 @@ import classNames from 'classnames'
 import TYPES from 'dnd-types.js'
 
 function Draggable(props) {
-  const [{ isBeingDragged, visibility }, drag, preview] = useDrag({
+  const [{ isBeingDragged, opacity }, drag, preview] = useDrag({
     item: {
       type: TYPES.EXISTING,
       value: props.identifier,
     },
     collect: (monitor) => ({
       isBeingDragged: monitor.isDragging(),
-      visibility: monitor.isDragging() ? 'hidden' : 'visible',
+      opacity: monitor.isDragging() ? 0 : 1,
     }),
   })
   const [{ isDragHappening }, beforeDrop] = useDrop({
@@ -71,10 +71,10 @@ function Draggable(props) {
     <>
       <div
         className="draggable"
-        style={{visibility: visibility}}
+        style={{opacity,}}
       >
         <div className="handle" ref={drag} style={{
-          opacity: isDragHappening ? 0 : 1,
+          opacity,
         }} />
         <div className="contents" ref={preview}>
           {!isBeingDragged && isDragHappening && (
