@@ -118,6 +118,10 @@ function WebEditor(props) {
       updatedConfig.layout || [],
       relativeTo
     )
+    if (item.type === 'layout' && relativeToPath.startsWith(item.path)) {
+      // can't drop a layout item inside of itself
+      return
+    }
     updatedConfig.layout = updatedLayout
     let movingLayout = null
     if (item.type === 'layout') {
@@ -126,7 +130,10 @@ function WebEditor(props) {
     }
     else if (item.type === 'field') {
       movingLayout = item
-      updatedConfig.layout = removeFieldFromLayout(updatedConfig.layout, item.field)
+      const existingFieldPath = getFieldPath(updatedConfig.layout, item.field)
+      if (existingFieldPath) {
+        updatedConfig.layout = updateLayoutPath(updatedConfig.layout, existingFieldPath, null)
+      }
     }
     updatedConfig.layout = insertIntoLayout(
       updatedConfig.layout,
