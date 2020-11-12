@@ -25,8 +25,8 @@ module.exports = {
       path.resolve('node_modules'),
     ],
     alias: {
-      // 'config-forms': path.resolve('../base'),
-      // 'config-forms-react': path.resolve('../react'),
+      'config-forms': path.resolve('../base'),
+      'config-forms-react': path.resolve('../react'),
       'config-forms-react-editor': path.resolve('../react-editor'),
     },
   },

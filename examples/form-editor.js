@@ -12,12 +12,24 @@ function DemoFormEditor(props) {
         type: 'text',
         label: 'The First Text',
       },
-      test_text_2: {
-        type: 'text',
-        label: 'The Second Text',
-        placeholder: 'And the text input',
-      },
     },
+    layout: [
+      {
+        type: 'container',
+        style: 'card',
+        contents: [
+          {
+            type: 'container',
+            style: 'outline',
+            contents: [],
+          },
+          {
+            type: 'field',
+            field: 'test_text_1',
+          },
+        ],
+      },
+    ],
   })
   const [demoValue, setDemoValue] = useState({})
   return (
