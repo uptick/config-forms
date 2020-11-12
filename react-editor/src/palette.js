@@ -45,7 +45,7 @@ function Palette(props) {
 }
 Palette.propTypes = {
   itemTypes: PropTypes.arrayOf(PropTypes.shape({
-    itemType: PropTypes.oneOf(['field', 'container']),
+    itemType: PropTypes.string,
     label: PropTypes.string,
     config: PropTypes.object,
   })).isRequired,
@@ -54,14 +54,14 @@ Palette.defaultProps = {
   itemTypes: [
     {
       itemType: 'field',
-      label: 'Text',
+      label: 'Text Input',
       config: {
         fieldType: 'text',
       },
     },
     {
       itemType: 'field',
-      label: 'Text Area',
+      label: 'Textarea Input',
       config: {
         fieldType: 'textarea',
       },
@@ -86,6 +86,10 @@ Palette.defaultProps = {
       config: {
         style: 'outline',
       },
+    },
+    {
+      itemType: 'text',
+      label: 'Display Text',
     },
   ],
 }

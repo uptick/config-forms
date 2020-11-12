@@ -1,41 +1,50 @@
-// export function layoutItemsMatch(itemOne, itemTwo) {
-//   if (itemOne.type !== itemTwo.type) {
-//     return false
-//   }
-//   switch (itemOne.type) {
-//     case 'field':
-//       return itemOne.field === itemTwo.field
-//   }
-// }
-// 
-// export function placeAdjacentInLayout(layout, item, position, relativeTo) {
-//   const updated = []
-//   const removed = removeItemFromLayout(layout, item)
-//   removed.map(layoutItem => {
-//     if (layoutItemsMatch(layoutItem, relativeTo)) {
-//       if (position === 'before') {
-//         updated.push(item)
-//         updated.push(layoutItem)
-//       }
-//       else {
-//         updated.push(layoutItem)
-//         updated.push(item)
-//       }
-//     }
-//     else {
-//       if (layoutItem.type === 'container') {
-//         updated.push({
-//           ...layoutItem,
-//           contents: placeAdjacentInLayout(layoutItem.contents || [], item, position, relativeTo),
-//         })
-//       }
-//       else {
-//         updated.push(layoutItem)
-//       }
-//     }
-//   })
-//   return updated
-// }
+export function getFieldPath(layout, fieldKey, currentPath='') {
+  let path = undefined
+  layout.map((layoutItem, childIndex) => {
+    const childPath = `${currentPath ? `${currentPath}.` : ''}${childIndex}`
+    if (layoutItem.type === 'field' && layoutItem.field === fieldKey) {
+      path = childPath
+      return
+    }
+    if (layoutItem.type === 'container') {
+      const contentsPath = getFieldPath(layoutItem.contents || [], fieldKey, childPath)
+      if (contentsPath) {
+        path = contentsPath
+      }
+    }
+  })
+  return path
+}
+
+export function insertIntoLayout(layout, item, position, path, currentPath='') {
+  const updated = []
+  layout.map((layoutItem, childIndex) => {
+    const childPath = `${currentPath ? `${currentPath}.` : ''}${childIndex}`
+    console.log('checking', childPath, 'with', path)
+    if (childPath === path) {
+      if (position === 'before') {
+        updated.push(item)
+        updated.push(layoutItem)
+      }
+      else {
+        updated.push(layoutItem)
+        updated.push(item)
+      }
+    }
+    else {
+      if (layoutItem.type === 'container') {
+        updated.push({
+          ...layoutItem,
+          contents: insertIntoLayout(layoutItem.contents || [], item, position, path, childPath),
+        })
+      }
+      else {
+        updated.push(layoutItem)
+      }
+    }
+  })
+  return updated
+}
 
 export function updateLayoutPath(layout, path, changes, currentPath='') {
   const updated = []
@@ -113,19 +122,5 @@ export function removeFieldFromLayout(layout, fieldKey) {
 }
 
 export function fieldIsInLayout(layout, fieldKey) {
-  let found = false
-  layout.map(layoutItem => {
-    if (layoutItem.type === 'field' && layoutItem.field === fieldKey) {
-      found = true
-      return
-    }
-    if (layoutItem.type === 'container') {
-      const foundInContainer = fieldIsInLayout(layoutItem.contents || [], fieldKey)
-      if (foundInContainer) {
-        found = true
-        return
-      }
-    }
-  })
-  return found
+  return getFieldsFromLayoutPath(layout, '').indexOf(fieldKey) != -1
 }

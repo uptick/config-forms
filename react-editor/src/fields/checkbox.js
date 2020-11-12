@@ -16,7 +16,10 @@ function Checkbox(props) {
   return (
     <>
       <Draggable
-        fieldKey={props.fieldKey}
+        identifier={{
+          type: 'field',
+          field: props.fieldKey,
+        }}
         onDelete={handleDelete}
         onDropNew={props.context.onDropNew}
         onDropExisting={props.context.onDropExisting}

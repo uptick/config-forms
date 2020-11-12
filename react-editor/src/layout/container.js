@@ -19,7 +19,10 @@ function Container(props) {
   }
   return (
     <Draggable
-      fieldKey={props.fieldKey}
+      identifier={{
+        type: 'layout',
+        path: props.layoutPath,
+      }}
       onDelete={handleDelete}
       onDropNew={props.context.onDropNew}
       onDropExisting={props.context.onDropExisting}

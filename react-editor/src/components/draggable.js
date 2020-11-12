@@ -10,10 +10,7 @@ function Draggable(props) {
   const [{ isBeingDragged, visibility }, drag, preview] = useDrag({
     item: {
       type: TYPES.EXISTING,
-      value: {
-        type: 'field',
-        field: props.fieldKey,
-      },
+      value: props.identifier,
     },
     collect: (monitor) => ({
       isBeingDragged: monitor.isDragging(),
@@ -28,10 +25,7 @@ function Draggable(props) {
           props.onDropNew(
             item.value,
             'before',
-            {
-              type: 'field',
-              field: props.fieldKey,
-            }
+            props.identifier
           )
           break
         }
@@ -39,10 +33,7 @@ function Draggable(props) {
           props.onDropExisting(
             item.value,
             'before',
-            {
-              type: 'field',
-              field: props.fieldKey,
-            }
+            props.identifier
           )
           break
         }
@@ -60,10 +51,7 @@ function Draggable(props) {
           props.onDropNew(
             item.value,
             'after',
-            {
-              type: 'field',
-              field: props.fieldKey,
-            }
+            props.identifier
           )
           break
         }
@@ -71,10 +59,7 @@ function Draggable(props) {
           props.onDropExisting(
             item.value,
             'after',
-            {
-              type: 'field',
-              field: props.fieldKey,
-            }
+            props.identifier
           )
           break
         }
@@ -96,10 +81,10 @@ function Draggable(props) {
           {!isBeingDragged && isDragHappening && (
             <div className="drop-adjacent before" ref={beforeDrop}></div>
           )}
-          {props.children}
           {!isBeingDragged && isDragHappening && (
             <div className="drop-adjacent after" ref={afterDrop}></div>
           )}
+          {props.children}
         </div>
         {deletable && <Button className="delete" onClick={props.onDelete}>✕</Button>}
       </div>
@@ -112,6 +97,11 @@ Draggable.propTypes = {
   onDropNew: PropTypes.func,
   onDropExisting: PropTypes.func,
   fieldKey: PropTypes.string,
+  identifier: PropTypes.shape({
+    type: PropTypes.oneOf(['field', 'layout']),
+    field: PropTypes.string,
+    path: PropTypes.string,
+  }).isRequired,
 }
 
 export default Draggable

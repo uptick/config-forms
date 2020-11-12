@@ -10,6 +10,8 @@ import {
   removePathFromLayout,
   getFieldsFromLayoutPath,
   updateLayoutPath,
+  getFieldPath,
+  insertIntoLayout,
 } from './layout-functions.js'
 
 const fieldRenderers = {
@@ -111,60 +113,67 @@ function WebEditor(props) {
   }
   const handleDropNew = (item, position, relativeTo) => {
     console.log('dropped new', item, position, relativeTo)
-    // const newFields = {
-    //   ...props.config.fields,
-    // }
-    // let layoutItem = item
-    // if (item.type === 'field') {
-    //   let newIndex = 1
-    //   const defaultKey = (index) => {
-    //     return `${item.fieldType}_${index}`
-    //   }
-    //   while (defaultKey(newIndex) in (props.config.fields || {})) {
-    //     newIndex++
-    //   }
-    //   const newFieldKey = defaultKey(newIndex)
-    //   newFields[newFieldKey] = {
-    //     ...item,
-    //     type: item.fieldType,
-    //   }
-    //   if ('fieldType' in newFields[newFieldKey]) {
-    //     delete newFields[newFieldKey].fieldType
-    //   }
-    //   layoutItem = {
-    //     type: 'field',
-    //     field: newFieldKey,
-    //   }
-    // }
-    // let newLayout = placeAdjacentInLayout(
-    //   props.config.layout || [],
-    //   layoutItem,
-    //   position,
-    //   relativeTo
-    // )
-    // if (!itemIsInLayout(newLayout, layoutItem)) {
-    //   // put all unmentioned fields into config
-    //   for (var fieldKey in props.config.fields || {}) {
-    //     if (!itemIsInLayout(newLayout, {type: 'field', field: fieldKey})) {
-    //       newLayout.push({
-    //         type: 'field',
-    //         field: fieldKey,
-    //       })
-    //     }
-    //   }
-    //   // then try the placement again
-    //   newLayout = placeAdjacentInLayout(
-    //     newLayout,
-    //     layoutItem,
-    //     position,
-    //     relativeTo
-    //   )
-    // }
-    // props.onChange({
-    //   ...props.config,
-    //   fields: newFields,
-    //   layout: newLayout,
-    // })
+
+    const updatedConfig = {
+      ...props.config,
+    }
+    let layoutItem = item
+    if (item.type === 'field') {
+      let newIndex = 1
+      const defaultKey = (index) => {
+        return `${item.fieldType}_${index}`
+      }
+      while (defaultKey(newIndex) in (props.config.fields || {})) {
+        newIndex++
+      }
+      const newFieldKey = defaultKey(newIndex)
+      updatedConfig.fields = {
+        ...updatedConfig.fields,
+        [newFieldKey]: {
+          ...item,
+          type: item.fieldType,
+        }
+      }
+      if ('fieldType' in updatedConfig.fields[newFieldKey]) {
+        delete updatedConfig.fields[newFieldKey].fieldType
+      }
+      layoutItem = {
+        type: 'field',
+        field: newFieldKey,
+      }
+    }
+    let relativeToPath = relativeTo.path
+    if (relativeTo.type === 'field') {
+      const layoutFields = getFieldsFromLayoutPath(updatedConfig.layout, '')
+      // field is not explicitly in layout
+      if (layoutFields.indexOf(relativeTo.field) == -1) {
+        updatedConfig.layout = [
+          ...updatedConfig.layout,
+        ]
+        // so cement all current (not including new) field positions with proper layout
+        for (var fieldKey in props.config.fields || {}) {
+          if (layoutFields.indexOf(fieldKey) === -1) {
+            updatedConfig.layout = [
+              ...updatedConfig.layout,
+              {
+                type: 'field',
+                field: fieldKey,
+              },
+            ]
+          }
+        }
+      }
+      relativeToPath = getFieldPath(updatedConfig.layout, relativeTo.field)
+    }
+    if (relativeToPath) {
+      updatedConfig.layout = insertIntoLayout(
+        updatedConfig.layout,
+        layoutItem,
+        position,
+        relativeToPath
+      )
+    }
+    props.onChange(updatedConfig)
   }
   return (
     <BaseRenderer
