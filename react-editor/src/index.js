@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { BaseRenderer } from 'config-forms'
 
 import FormContainer from './form-container.js'
@@ -17,6 +18,8 @@ import {
   cleanLayoutNulls,
 } from './layout-functions.js'
 
+export { FormContainer, Palette }
+
 const fieldRenderers = {
   text: fields.Text,
   textarea: fields.Textarea,
@@ -27,7 +30,7 @@ const layoutRenderers = {
   text: layout.Text,
 }
 
-export { Palette }
+export { fieldRenderers, layoutRenderers }
 
 function WebEditor(props) {
   const handleChange = (updates) => {
@@ -195,9 +198,7 @@ function WebEditor(props) {
       {...props}
       value={{}}
       onChange={handleChange}
-      container={FormContainer}
-      fieldRenderers={fieldRenderers}
-      layoutRenderers={layoutRenderers}
+      container={props.formContainer}
       formRenderer={WebEditor}
       context={{
         ...props.context,
@@ -207,6 +208,16 @@ function WebEditor(props) {
       }}
     />
   )
+}
+WebEditor.propTypes = {
+  fieldRenderers: PropTypes.object,
+  layoutRenderers: PropTypes.object,
+  formContainer: PropTypes.any,
+}
+WebEditor.defaultProps = {
+  fieldRenderers: fieldRenderers,
+  layoutRenderers: layoutRenderers,
+  formContainer: FormContainer,
 }
 
 export default WebEditor
