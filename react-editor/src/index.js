@@ -4,6 +4,7 @@ import { BaseRenderer } from 'config-forms'
 
 import FormContainer from './form-container.js'
 import Palette from './palette.js'
+import { Draggable, ContentBox } from './components'
 import * as fields from './fields'
 import * as layout from './layout'
 import {
@@ -18,7 +19,9 @@ import {
   cleanLayoutNulls,
 } from './layout-functions.js'
 
-export { FormContainer, Palette }
+export { FormContainer }
+export { Palette }
+export { Draggable, ContentBox }
 
 const fieldRenderers = {
   text: fields.Text,
