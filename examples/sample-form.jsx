@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import WebRenderer from 'config-forms-react'
+import Renderer from 'config-forms-react/renderer'
 
 import SampleForm from '../../docs/sample-form.json'
 
@@ -8,12 +8,12 @@ const HOSTED_SAMPLE_FORM_URL = (
   'https://github.com/uptick/config-forms/blob/master/docs/sample-form.json'
 )
 
-function DemoSampleForm(props) {
+function DemoSampleForm() {
   const [value, setValue] = useState({})
   return (
     <>
       <p><a href={HOSTED_SAMPLE_FORM_URL}>View the contents of the sample form on GitHub</a>.</p>
-      <WebRenderer
+      <Renderer
         config={SampleForm}
         value={value}
         onChange={(newValue) => {

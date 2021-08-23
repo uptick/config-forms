@@ -1,36 +1,43 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import WebEditor, { Palette } from 'config-forms-react-editor'
-import WebRenderer from 'config-forms-react'
-import { DndProvider } from 'react-dnd'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { Button } from 'mireco'
+import Editor from 'config-forms-react-editor/editor'
+import Palette from 'config-forms-react-editor/palette'
+import Renderer from 'config-forms-react/renderer'
+import { Button } from 'mireco/inputs'
+import { DragDropContext } from 'react-beautiful-dnd'
 
-function DemoFormEditor(props) {
+function DemoFormEditor() {
   const [tab, setTab] = useState('editor')
+  // const [config, setConfig] = useState({
+  //   fields: {
+  //     test_text_1: {
+  //       type: 'text',
+  //       label: 'The First Text',
+  //     },
+  //   },
+  //   layout: [
+  //     {
+  //       type: 'container',
+  //       style: 'card',
+  //       contents: [
+  //         {
+  //           type: 'container',
+  //           style: 'outline',
+  //           contents: [],
+  //         },
+  //         {
+  //           type: 'field',
+  //           field: 'test_text_1',
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // })
   const [config, setConfig] = useState({
-    fields: {
-      test_text_1: {
-        type: 'text',
-        label: 'The First Text',
-      },
-    },
     layout: [
-      {
-        type: 'container',
-        style: 'card',
-        contents: [
-          {
-            type: 'container',
-            style: 'outline',
-            contents: [],
-          },
-          {
-            type: 'field',
-            field: 'test_text_1',
-          },
-        ],
-      },
+      {type: 'container', style: 'card', contents: [
+        {type: 'text', text: 'hi there'},
+      ]},
     ],
   })
   const [demoValue, setDemoValue] = useState({})
@@ -59,21 +66,21 @@ function DemoFormEditor(props) {
         </Button>
       </div>
       {tab === 'editor' && (
-        <DndProvider backend={HTML5Backend}>
+        <DragDropContext>
           <Palette />
-          <WebEditor
+          <Editor
             config={config}
             onChange={(newConfig) => {
               setConfig(newConfig)
             }}
           />
-        </DndProvider>
+        </DragDropContext>
       )}
       {tab === 'config' && (
         <pre>{JSON.stringify(config, null, 2)}</pre>
       )}
       {tab === 'preview' && (
-        <WebRenderer
+        <Renderer
           config={config}
           value={demoValue}
           onChange={(newValue) => {
