@@ -63,6 +63,29 @@ typings/
 # built files
 dist
 
+# base built files
+base/meta.json
+base/renderer.js*
+base/sample.js*
+
+# react built files
+react/config-forms-react.css*
+react/field-renderers.js*
+react/form-container.js*
+react/layout-renderers.js*
+react/meta.json
+react/renderer.js*
+
+# react editor built files
+react-editor/config-forms-react-editor.css*
+react-editor/dnd-types.js*
+react-editor/editor.js*
+react-editor/field-renderers.js*
+react-editor/form-container.js*
+react-editor/layout-renderers.js*
+react-editor/meta.json
+react-editor/palette.js*
+
 # jekyll build
 demo/_site
 demo/dist/*.js

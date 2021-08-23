@@ -15,7 +15,7 @@ You can also extend the functionality of Config Forms with your own custom field
 
 ## Editor Support
 
-- [ ] React DOM
+- [x] React DOM
 
 ## Form Functionality Roadmap
 

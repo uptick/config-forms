@@ -1,0 +1,4 @@
+src/**/*.js*
+esbuild-*.js
+*.js.map
+meta.json
