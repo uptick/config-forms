@@ -12,6 +12,7 @@ function Item(props) {
         <li
           ref={provided.innerRef}
           style={{opacity: opacity}}
+          className="item"
           {...provided.draggableProps}
           {...provided.dragHandleProps}
         >
