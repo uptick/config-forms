@@ -4,7 +4,8 @@
     "paths": {
       "react": ["../demo/node_modules/react"],
       "react-dom": ["../demo/node_modules/react-dom"],
-      "react-beautiful-dnd": ["../demo/node_modules/react-beautiful-dnd"]
+      "react-beautiful-dnd": ["../demo/node_modules/react-beautiful-dnd"],
+      "config-forms/renderer": ["../base/renderer.js"]
     }
   }
 }
