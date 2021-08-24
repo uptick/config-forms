@@ -2,6 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
+      "config-forms/renderer": ["../base/renderer.js"],
       "config-forms-react-editor/editor": ["../react-editor/editor.js"],
       "config-forms-react-editor/palette": ["../react-editor/palette.js"]
     }
