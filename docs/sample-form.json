@@ -32,23 +32,6 @@
     "outline_example": {
       "type": "text",
       "label": "Example of a text box inside an outline"
-    },
-
-    "subform_example": {
-      "type": "subform",
-      "name": "Friend",
-      "repeats": true,
-      "addMore": true,
-      "fields": {
-        "text": {
-          "type": "text",
-          "label": "Friend's name",
-          "placeholder": "Name"
-        }
-      },
-      "layout": [
-        {"type": "field", "field": "text"}
-      ]
     }
   },
   "layout": [
@@ -72,22 +55,6 @@
         {"type": "field", "field": "annotated_textarea"},
         {"type": "field", "field": "annotated_checkbox"},
         {"type": "field", "field": "annotated_number"}
-      ]
-    },
-    {
-      "type": "container",
-      "style": "card",
-      "title": "Layout / Subforms",
-      "contents": [
-        {
-          "type": "container",
-          "style": "outline",
-          "title": "Outline Example",
-          "contents": [
-            {"type": "field", "field": "outline_example"}
-          ]
-        },
-        {"type": "field", "field": "subform_example"}
       ]
     }
   ]

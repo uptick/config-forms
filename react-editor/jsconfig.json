@@ -3,9 +3,11 @@
     "baseUrl": ".",
     "paths": {
       "react": ["../demo/node_modules/react"],
+      "react/jsx-runtime": ["../demo/node_modules/react/jsx-runtime"],
+      "react-dnd": ["../demo/node_modules/react-dnd"],
       "react-dom": ["../demo/node_modules/react-dom"],
-      "react-beautiful-dnd": ["../demo/node_modules/react-beautiful-dnd"],
-      "config-forms/renderer": ["../base/renderer.js"]
+      "mireco/inputs": ["../demo/node_modules/mireco/inputs"],
+      "config-forms/renderer": ["../base/renderer.js"],
     }
   }
 }

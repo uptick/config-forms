@@ -1,25 +1,26 @@
-import React from 'react'
+import React, { useRef } from 'react'
+import { useDrag } from 'react-dnd'
 import PropTypes from 'prop-types'
-import { Draggable, Droppable } from 'react-beautiful-dnd'
+import { DndProvider } from 'react-dnd'
 
 import TYPES from './dnd-types.js'
 
 function Item(props) {
-  const opacity = 1
+  const [{ opacity }, dragRef] = useDrag({
+    type: TYPES.NEW,
+    item: {
+      type: TYPES.NEW,
+      value: {
+        type: props.itemType,
+        ...props.config || {},
+      },
+    },
+    collect: (monitor) => ({
+      opacity: monitor.isDragging() ? 0.5 : 1,
+    }),
+  })
   return (
-    <Draggable draggableId={props.identifier} index={props.index}>
-      {(provided, snapshot) => (
-        <li
-          ref={provided.innerRef}
-          style={{opacity: opacity}}
-          className="item"
-          {...provided.draggableProps}
-          {...provided.dragHandleProps}
-        >
-          {props.children}
-        </li>
-      )}
-    </Draggable>
+    <li ref={dragRef} className="item" style={{opacity: opacity}}>{props.children}</li>
   )
 }
 Item.propTypes = {
@@ -30,23 +31,18 @@ Item.propTypes = {
 
 function Palette(props) {
   return (
-    <Droppable droppableId="palette">
-      {(provided, snapshot) => (
-        <ul className="CONFORM-palette">
-          {props.itemTypes.map((itemType, index) => {
-            return (
-              <Item
-                key={itemType.label}
-                {...itemType}
-                index={index}
-              >
-                {itemType.label}
-              </Item>
-            )
-          })}
-        </ul>
-      )}
-    </Droppable>
+    <ul className="CONFORM-palette">
+      {props.itemTypes.map((itemType) => {
+        return (
+          <Item
+            key={itemType.label}
+            {...itemType}
+          >
+            {itemType.label}
+          </Item>
+        )
+      })}
+    </ul>
   )
 }
 Palette.propTypes = {
@@ -59,7 +55,6 @@ Palette.propTypes = {
 Palette.defaultProps = {
   itemTypes: [
     {
-      identifier: 'text-field',
       itemType: 'field',
       label: 'Text Input',
       config: {
@@ -67,7 +62,6 @@ Palette.defaultProps = {
       },
     },
     {
-      identifier: 'textarea-field',
       itemType: 'field',
       label: 'Textarea Input',
       config: {
@@ -75,7 +69,6 @@ Palette.defaultProps = {
       },
     },
     {
-      identifier: 'checkbox-field',
       itemType: 'field',
       label: 'Checkbox Input',
       config: {
@@ -83,7 +76,6 @@ Palette.defaultProps = {
       },
     },
     {
-      identifier: 'card-layout',
       itemType: 'container',
       label: 'Card',
       config: {
@@ -91,7 +83,6 @@ Palette.defaultProps = {
       },
     },
     {
-      identifier: 'outline-layout',
       itemType: 'container',
       label: 'Outline',
       config: {
@@ -99,7 +90,6 @@ Palette.defaultProps = {
       },
     },
     {
-      identifier: 'text-layout',
       itemType: 'text',
       label: 'Display Text',
     },
