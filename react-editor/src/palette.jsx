@@ -1,7 +1,6 @@
 import React, { useRef } from 'react'
 import { useDrag } from 'react-dnd'
 import PropTypes from 'prop-types'
-import { DndProvider } from 'react-dnd'
 
 import TYPES from './dnd-types.js'
 
