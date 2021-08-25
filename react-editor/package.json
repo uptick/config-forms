@@ -1,6 +1,6 @@
 {
   "name": "config-forms-react-editor",
-  "version": "0.1.3",
+  "version": "0.1.5",
   "description": "Config forms drag and drop editor for React.",
   "repository": "https://github.com/uptick/config-forms",
   "author": "Uptick",
@@ -16,7 +16,7 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "config-forms": "^0.1.1",
-    "config-forms-react": "^0.1.1",
+    "config-forms-react": "^0.1.2",
     "mireco": "^0.2.2",
     "prop-types": "^15.7.2",
     "react-dnd": "^14.0.3"

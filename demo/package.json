@@ -8,13 +8,13 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "publish:demo": "git branch -D gh-pages && git push origin --delete gh-pages; git checkout -b gh-pages && yarn && yarn build && git add . && git add -f dist && git add -f node_modules/uptick-demo-site/dist && git commit -m \"Demo site build\" && git push origin gh-pages && git checkout master && cd .. && git push origin `git subtree split --prefix demo gh-pages`:gh-pages --force && cd demo",
-    "build": "node esbuild-release.js",
+    "publish:demo": "git branch -D gh-pages && git push origin --delete gh-pages; git checkout -b gh-pages && yarn && git add . && git add -f dist && git add -f node_modules/uptick-demo-site/dist && git commit -m \"Demo site build\" && git push origin gh-pages && git checkout master && cd .. && git push origin `git subtree split --prefix demo gh-pages`:gh-pages --force && cd demo",
+    "prepare": "node esbuild-release.js",
     "start": "./node_modules/.bin/concurrently \"node esbuild-dev.js\" \"jekyll serve\""
   },
   "dependencies": {
-    "config-forms-react": "^0.1.1",
-    "config-forms-react-editor": "^0.1.3",
+    "config-forms-react": "^0.1.2",
+    "config-forms-react-editor": "^0.1.5",
     "mireco": "^0.2.2",
     "react": "^16.9.0",
     "react-dnd": "^14.0.3",

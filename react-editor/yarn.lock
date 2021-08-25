@@ -114,10 +114,10 @@ concurrently@^5.3.0:
     tree-kill "^1.2.2"
     yargs "^13.3.0"
 
-config-forms-react@^0.1.1:
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/config-forms-react/-/config-forms-react-0.1.1.tgz#14142fc76154df533c405cde9355523e46b30e96"
-  integrity sha512-/OABhYSg20bK4qCMmBB8Vj0mkcELJlQAQPqvveEE9cYDlcttGY7EAqaEypItiyDwzZ5bTSNANjGLcUM4FQ49Jg==
+config-forms-react@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/config-forms-react/-/config-forms-react-0.1.2.tgz#4c4a5dd21ae5b4ae249a7a17de55c0858b90c599"
+  integrity sha512-uxZajSlWQKDuUWErjyu1HIZd922UCsidz86qDlw5tyZb4v/XrZn8MtuOqMDQ928j5Zg3nEkB1f7g5S6sfxRKpg==
   dependencies:
     classnames "^2.2.6"
     config-forms "^0.1.1"
