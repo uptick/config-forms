@@ -26,6 +26,20 @@ function useMouseCoords() {
   return getCoords
 }
 
+function useDragDelay(currentDelay) {
+  const [delayed, setDelayed] = useState(currentDelay)
+  useEffect(() => {
+    const update = () => {
+      setDelayed(currentDelay)
+    }
+    const timed = window.setTimeout(update, 500)
+    return () => {
+      window.clearTimeout(timed)
+    }
+  }, [currentDelay])
+  return delayed
+}
+
 function Draggable(props) {
   const getCoords = useMouseCoords()
   const draggableRef = useRef()
@@ -124,6 +138,7 @@ function Draggable(props) {
     }),
   })
   const deletable = typeof props.onDelete === 'function'
+  const delayedDragHappening = useDragDelay(isDragHappening)
   return (
     <>
       <div
@@ -143,7 +158,7 @@ function Draggable(props) {
             paddingBottom: isAfterActive ? activeHeight : 0,
           }}
         >
-          {!isBeingDragged && isDragHappening && (
+          {!isBeingDragged && delayedDragHappening && (
             <div
               className="drop-adjacent before"
               ref={beforeDrop}
@@ -156,7 +171,7 @@ function Draggable(props) {
               }}
             />
           )}
-          {!isBeingDragged && isDragHappening && (
+          {!isBeingDragged && delayedDragHappening && (
             <div
               className="drop-adjacent after"
               ref={afterDrop}
