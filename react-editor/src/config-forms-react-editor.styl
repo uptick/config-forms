@@ -42,9 +42,9 @@ div.draggable
     background-image: radial-gradient(#444 25%, #eee 25%)
     background-position: 0 0
     background-size: 0.4rem 0.4rem
-    // z-index: 11
+    z-index: 11
   &.drag-happening div.handle
-    visibility: hidden
+    opacity: 0
   div.contents
     flex: 1
     position: relative
@@ -70,16 +70,20 @@ div.draggable
     &.before
       top: 0
       background: rgba(0, 0, 0, 0)
-      background: rgba(255, 0, 0, 0.05)
+      // background: rgba(255, 0, 0, 0.05)
     &.after
       bottom: 0
       background: rgba(0, 0, 0, 0)
-      background: rgba(0, 255, 0, 0.05)
+      // background: rgba(0, 255, 0, 0.05)
 
 div.content-box
   position: relative
   display: flex
+  min-height: 40px
+  flex-direction: column
+  justify-content: center
   padding-bottom: 1.5rem
+  transition: min-height 0.3s
   p.no-contents
     margin: 0
     padding: 0
@@ -92,4 +96,4 @@ div.content-box
     left: -0.5rem
     right: -0.5rem
     bottom: 0.5rem
-    background: rgba(0, 0, 255, 0.05)
+    // background: rgba(0, 0, 255, 0.05)

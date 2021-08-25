@@ -5,7 +5,7 @@ import { useDrop } from 'react-dnd'
 import TYPES from '../dnd-types.js'
 
 function ContentBox(props) {
-  const [{ isDragHappening }, insideDrop] = useDrop({
+  const [{isDragHappening, isActive, activeHeight, grabPadding}, insideDrop] = useDrop({
     accept: [TYPES.EXISTING, TYPES.NEW],
     drop: (item) => {
       switch (item.type) {
@@ -27,14 +27,31 @@ function ContentBox(props) {
         }
       }
     },
-    collect: (monitor) => ({
-      isDragHappening: monitor.getItem() !== null,
-    }),
+    collect: (monitor) => {
+      const item = monitor.getItem()
+      return ({
+        isDragHappening: item !== null,
+        isActive: monitor.canDrop() && monitor.isOver(),
+        activeHeight: (item && item.height) || 40,
+        grabPadding: (item && item.grabPadding) || {left: 0, top: 0, right: 0, bottom: 0},
+      })
+    },
   })
   return (
-    <div className="content-box">
+    <div className="content-box" style={{minHeight: isActive ? activeHeight : 40}}>
       <p className="no-contents">(no contents)</p>
-      {isDragHappening && (<div className="drop-zone" ref={insideDrop} />)}
+      {isDragHappening && (
+        <div
+          className="drop-zone"
+          ref={insideDrop}
+          style={{
+            left: -grabPadding.left,
+            right: grabPadding.right,
+            top: -grabPadding.top,
+            bottom: grabPadding.bottom,
+          }}
+        />
+      )}
     </div>
   )
 }
