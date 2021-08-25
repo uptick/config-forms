@@ -188,7 +188,9 @@ function Draggable(props) {
             {props.children}
           </div>
         </div>
-        {deletable && <Button className="delete" onClick={props.onDelete}>✕</Button>}
+        {deletable && !isDragHappening && (
+          <Button className="delete" onClick={props.onDelete}>✕</Button>
+        )}
       </div>
     </>
   )
