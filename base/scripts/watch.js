@@ -1,7 +1,7 @@
 const fs = require('fs')
 const { build } = require('esbuild')
 
-const { config } = require('./esbuild-base.js')
+const { config } = require('./build.js')
 
 build({
   ...config,

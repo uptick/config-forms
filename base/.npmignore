@@ -1,4 +1,5 @@
 src
-esbuild-*.js
+scripts
 *.js.map
 meta.json
+jsconfig.json
