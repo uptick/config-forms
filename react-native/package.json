@@ -1,6 +1,6 @@
 {
   "name": "config-forms-react-native",
-  "version": "0.0.15",
+  "version": "1.0.0",
   "description": "React Native renderer for config forms.",
   "main": "dist/config-forms-react-native.js",
   "repository": "https://github.com/uptick/config-forms",
@@ -8,28 +8,19 @@
   "license": "MIT",
   "private": false,
   "scripts": {
-    "build:js": "./node_modules/.bin/webpack --production",
-    "watch:js": "./node_modules/.bin/webpack --watch",
-    "watch": "npm run watch:js",
-    "build": "npm run build:js",
+    "build": "node scripts/build.js",
+    "watch": "node scripts/watch.js",
     "prepare": "npm run build"
   },
   "peerDependencies": {
-    "react": "^16.9.0",
-    "react-native": "~0.61.5"
+    "react": "^17.0.0",
+    "react-native": "~0.64.3"
   },
   "dependencies": {
-    "config-forms": "^0.0.9",
+    "config-forms": "^2.0.0",
     "react-native-vector-icons": "^6.4.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@babel/preset-react": "^7.0.0",
-    "babel-loader": "^8.0.5",
-    "peer-deps-externals-webpack-plugin": "^1.0.4",
-    "webpack": "^4.29.6",
-    "webpack-cli": "^3.3.0"
+    "esbuild": "^0.12.21"
   }
 }

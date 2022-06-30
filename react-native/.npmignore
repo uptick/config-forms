@@ -1,0 +1,4 @@
+src
+scripts
+*.js.map
+meta.json

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import Text from './text.js'
+import Text from './text.jsx'
 
 class Number extends React.PureComponent {
   render() {

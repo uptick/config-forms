@@ -1,7 +1,7 @@
 import React from 'react'
 
-import Card from './card.js'
-import Outline from './outline.js'
+import Card from './card.jsx'
+import Outline from './outline.jsx'
 
 class Container extends React.PureComponent {
   renderByStyle() {

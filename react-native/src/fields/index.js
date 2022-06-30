@@ -1,12 +1,12 @@
-import Checkbox from './checkbox.js'
+import Checkbox from './checkbox.jsx'
 export { Checkbox }
-import Text from './text.js'
+import Text from './text.jsx'
 export { Text }
-import Textarea from './textarea.js'
+import Textarea from './textarea.jsx'
 export { Textarea }
 
-import InfoLabel from './info-label.js'
+import InfoLabel from './info-label.jsx'
 export { InfoLabel }
 
-import Number from './number.js'
+import Number from './number.jsx'
 export { Number }
