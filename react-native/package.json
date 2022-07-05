@@ -1,6 +1,6 @@
 {
   "name": "config-forms-react-native",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React Native renderer for config forms.",
   "main": "dist/config-forms-react-native.js",
   "repository": "https://github.com/uptick/config-forms",

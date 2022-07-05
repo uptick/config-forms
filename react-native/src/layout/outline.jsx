@@ -3,7 +3,6 @@ import { View } from 'react-native'
 
 import Style from '../style.js'
 
-
 class Outline extends React.PureComponent {
   render() {
     return (

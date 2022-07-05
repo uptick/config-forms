@@ -1,5 +1,5 @@
 import React from 'react'
-import { BaseRenderer } from 'config-forms'
+import BaseRenderer from 'config-forms/renderer'
 
 import FormContainer from './form-container.jsx'
 import * as fields from './fields'
